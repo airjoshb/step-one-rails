@@ -6,7 +6,7 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module SwitchRails
+module StepOneRails
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
@@ -19,7 +19,7 @@ module SwitchRails
     config.time_zone = "Pacific Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.active_storage.service = :local
+    config.active_storage.service = :cloudinary
     config.active_storage.variant_processor = :mini_magick
   end
 end

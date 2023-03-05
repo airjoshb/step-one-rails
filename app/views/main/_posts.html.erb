@@ -1,14 +1,8 @@
-<section id="gallery">
-  <div class="gallery-grid">
-    <div class="postGrid">
-      <% @posts.reverse.each do |post| %>
-        <%= link_to update_path(post) do %>
-          <div class="imageContainer">
-            <%= image_tag post.medium_image, alt: post.title %>
-            <h5 class="shadowTitle"><%= post.title %></h5>
-          </div>
-        <% end %>
-      <% end %>
+<% @posts.reverse.each do |post| %>
+  <%= link_to update_path(post) do %>
+    <div class="imageContainer">
+      <%= image_tag post.medium_image, alt: post.title %>
+      <h5 class="shadowTitle"><%= post.title %></h5>
     </div>
-  </div>
-</section>
+  <% end %>
+<% end %>

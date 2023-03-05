@@ -1,4 +1,3 @@
-# This migration comes from bloak (originally 20210717165635)
 MIGRATION_CLASS =
   if ActiveRecord::VERSION::MAJOR >= 5
     ActiveRecord::Migration["#{ActiveRecord::VERSION::MAJOR}.#{ActiveRecord::VERSION::MINOR}"]

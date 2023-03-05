@@ -1,10 +1,9 @@
 class MainController < ApplicationController
 
   def index
-    @gallery = Dir.glob("app/assets/images/gallery/*.jpg")
     @page = Page.find_by_slug("home")
-    @categories = Category.where.not(name: "All")
-    @all = Category.find_by_name("All")
-    @posts = Post.last(4)
+    @posts = Post.joins(:category).where.not(category: {name:  "Update"})
+    @updates = Post.joins(:category).where(category: {name:  "Update"})
+    render layout: 'main'
   end
 end

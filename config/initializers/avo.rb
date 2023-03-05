@@ -89,7 +89,7 @@ Avo.configure do |config|
   #   },
   #   chart_colors: ["#0B8AE2", "#34C683", "#2AB1EE", "#34C6A8"],
     logo: "logo.png",
-    logomark: "switch-bakery-gluten-free-bread.png"
+    logomark: "step-one-icon.svg"
   #   placeholder: "/avo-assets/placeholder.svg"
   }
 

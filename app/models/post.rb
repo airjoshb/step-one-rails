@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
-
+  belongs_to :category
+  
   extend FriendlyId
   friendly_id :title, use: [:slugged, :history]
 

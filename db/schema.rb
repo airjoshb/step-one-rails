@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_13_215716) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_04_221907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -169,8 +169,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_215716) do
     t.string "title"
     t.string "slug"
     t.string "image"
+    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_posts_on_category_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -237,6 +239,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_215716) do
   add_foreign_key "orderables", "variations"
   add_foreign_key "password_reset_tokens", "users"
   add_foreign_key "payment_methods", "customer_orders"
+  add_foreign_key "posts", "categories"
   add_foreign_key "products", "categories"
   add_foreign_key "sessions", "users"
   add_foreign_key "variations", "products"

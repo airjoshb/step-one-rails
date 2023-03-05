@@ -7,23 +7,25 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 Product.create([
-  {name: "Gluten-Free Baguette", description: "A fresh, crusty, gluten-free baguette."},
-  {name: "Gluten-Free Sandwich Buns", description: "A soft, fluffy bun for your burger or sandwich."},
-  {name: "Keto Pecan Bundt Cake", description: "A sugar-free cake worthy of your dessert table."},
-  {name: "A Cake for Two", description: "A proper layer cake just big enough to share, or not."},
-  {name: "Bread Club", description: "Join our gluten-free bread club for Santa Cruz and Monterey"},
+  {name: "The Crohn's Disease AIP Cookbook", description: "Recipes to Reduce Inflammation and Eliminate Food Triggers on the Autoimmune Protocol"},
+
 ])
 Category.create([
-  {name: "Bread"},
-  {name: "Pies"},
-  {name: "Cupcakes"},
+  {name: "Crohn's"},
+  {name: "Training"},
+  {name: "Mindfulness"},
   {name: "Keto"},
-  {name: "Vegan"},
+  {name: "Recipes"},
+  {name: "Reading"},
+  {name: "Watching"},
+  {name: "Listening"},
+  {name: "Entrepreneurship"},
+  {title: "All"},
 ])
 Page.create([
-  {title: "about", slug: "about"},
-  {title: "sucess"},
-  {title: "cancel"},
-  {title: "faq"},
+  {title: "about joshua", slug: "joshua"},
+  {title: "now"},
+  {title: "home", description: "Start where you are and begin again."},
+
 ])
 User.create(email: ENV.fetch('ADMIN_EMAIL'), password: ENV.fetch('ADMIN_PASSWORD'), password_confirmation: ENV.fetch('ADMIN_PASSWORD'))
