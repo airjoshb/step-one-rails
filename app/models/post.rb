@@ -10,11 +10,19 @@ class Post < ApplicationRecord
   has_rich_text :content
 
   def thumbnail
-    self.image.variant({thumbnail: '150x150^', gravity: 'center', extent: '150x150'})
+    self.image.key(width: 150, height: 150, crop: :fill, gravity: 'center')
   end
 
   def medium_image
-    self.image.variant({resize: "300x300", gravity: "center" })
+    Cloudinary::Utils.cloudinary_url(
+      self.image,
+      transformation: [{width: 300, height: 300, crop: :fill, gravity: 'center'}])
+  end
+
+  def large_image
+    Cloudinary::Utils.cloudinary_url(
+      self.image,
+      transformation: [{width: 600, height: 600, crop: :scale}])
   end
 
 end

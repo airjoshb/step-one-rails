@@ -1,5 +1,9 @@
 <div class="bannerContainer">
-  <%= image_tag image, width: '100%' if image.present? %>
+   <% unless action_name == 'index' || image.present? %>
+    <%= image_tag image, alt: subtitle %>
+  <% else %>
+    <%= image_tag 'switch-bakery-gluten-free-bread.png', alt: "Gluten Free Bread Delivery Fox on a Bike" %>
+  <% end %>
   <% if title.present? %>
     <h1><%= title %></h1>
     <span class="subtitleStyle"><%= subtitle %></span>

@@ -1,6 +1,6 @@
 <div class="categoryHero">
   <% if @all.image.present? %>
-  <%= link_to image_tag(@all.image), products_path(@all) %>
+  <%= link_to cl_image_tag(@all.image.key), products_path(@all) %>
   <% else %>
   <%= link_to @all.name, products_path(@all) %>
   <% end %>
@@ -11,7 +11,7 @@
       <div class="gridItem">
         <h5 class="categoryName"><%= category.name %></h5>
         <% if category.image.present? %>
-          <%= link_to image_tag(category.image), products_path(category: category.name) %>
+          <%= link_to cl_image_tag(category.image.key), products_path(category: category.name) %>
         <% end %>
       </div>
     <% end %>

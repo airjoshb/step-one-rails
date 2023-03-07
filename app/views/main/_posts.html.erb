@@ -1,7 +1,7 @@
 <% @posts.reverse.each do |post| %>
   <%= link_to update_path(post) do %>
     <div class="imageContainer">
-      <%= image_tag post.medium_image, alt: post.title %>
+      <%= cl_image_tag(post.image.key, width: 200, height: 200, crop: :fill, gravity: 'center', alt: post.title) %>
       <h5 class="shadowTitle"><%= post.title %></h5>
     </div>
   <% end %>

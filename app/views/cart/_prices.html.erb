@@ -1,5 +1,5 @@
 <div class= "imageContainer" role="presentation" >
-  <%= image_tag variation.product.image.variant(resize_to_limit: [75, 75]), alt: variation.product.name %>
+  <%= cl_image_tag(variation.product.image.key, width: 75, height: 75, crop: :fill, gravity: 'center', alt: variation.product.name) %>
 </div>
 <span class="variation">
   <% if variation.unit_quantity.present? && variation.unit_quantity > 1 %>

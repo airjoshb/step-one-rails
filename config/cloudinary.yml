@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: airjoshb
+  api_key: '425996484659722'
+  api_secret: otFIQ99aO5tmpvX_2pjhoLKyc3s
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: airjoshb
+  api_key: '425996484659722'
+  api_secret: otFIQ99aO5tmpvX_2pjhoLKyc3s
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: airjoshb
+  api_key: '425996484659722'
+  api_secret: otFIQ99aO5tmpvX_2pjhoLKyc3s
+  enhance_image_tag: true
+  static_file_support: false

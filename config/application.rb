@@ -20,6 +20,8 @@ module StepOneRails
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.active_storage.service = :cloudinary
-    config.active_storage.variant_processor = :mini_magick
+    # config.active_storage.variant_processor = :mini_magick
+    config.active_storage.track_variants = true
+
   end
 end

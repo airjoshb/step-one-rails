@@ -23,7 +23,7 @@
 <% end %>
 
 <div class="bannerContainer">
-  <%= image_tag @post.image.variant(resize_to_limit: [600, 600]), alt: @post.title  if @post.image.attached? %>
+  <%= cl_image_tag(@post.image.key, width: 600, height: 600, crop: :scale, alt: @post.title)  if @post.image.attached? %>
 </div>
 <section id="post">
   <div class="container">
