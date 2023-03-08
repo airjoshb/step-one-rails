@@ -17,7 +17,7 @@
   <link rel="canonical" href="https://gotostepone.com" />
 <% end %>
 <%= render "hero" %>
-<%= render "banner", image: 'https://res.cloudinary.com/airjoshb/image/upload/v1660692902/Crohn_sDiseaseAIPCookbook_9781638780403_FacebookBusiness_f2jiya.jpg' %>
+<%= render "quote", artifact: @artifact unless @artifact.nil? %>
 <section id="pageContent">
   <div class="pageContent"> 
     <div class="p-4 sm:w-full md:w-1/3">

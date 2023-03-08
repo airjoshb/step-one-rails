@@ -1,5 +1,7 @@
  <section id="quote">
   <div class="quote-content">
-    
+    <p><%= artifact.description %></p>
+    <%= link_to "check it out ->", artifact.url, class: "" %>
   </div> 
+  <%= image_tag artifact.image.key(width: 400, crop: :scale), alt: artifact.name %>
 </section>

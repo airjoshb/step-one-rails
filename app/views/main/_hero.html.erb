@@ -1,37 +1,37 @@
-<header class="main w-full h-screen relative overflow-hidden py-3 px-5 border-b-thick border-solid border-green-brand">
-  <img class="absolute l-0 t-0 h-auto image-header" src="https://res.cloudinary.com/airjoshb/image/upload/w_1500,f_auto/go-to-step-one.jpg" />
-  <div class="flex justify-end logo pt-12">
+<header class="main relative h-screen overflow-hidden py-4 px-5 border-b-thick border-solid border-green-brand">
+  <img class="absolute l-0 t-225 h-auto" src="https://res.cloudinary.com/airjoshb/image/upload/w_1500,f_auto/go-to-step-one.jpg" />
+  <div class="flex-end logo pt-12">
     <%= render 'logo' %>
   </div>
-  <div class="flex justify-end header-content">
-      <div class="title pr-4 border-r-thick border-solid border-grey-lightest w-3/5 items-end">
-          <h1 class="font-serif text-5xl text-grey-lightest text-right leading-none">
-              Start where you are and begin again.
-          </h1>
-          <div class="font-serif font-medium italic border-b-thick border-solid border-grey-lightest text-right text-grey-lightest text-lg pt-5 leading-normal">
-              <p class="mb-1 "><a href="https://twitter.com/airjoshb">Joshua</a> is passionate about making life better. </br> He's an autoimmune athlete with Crohn's, a meditator, and co-founder of <a href="http://levered.com">Levered Learning</a>.</a></br><a href="#thoughts">Sign up</a> for thoughts on Crohn's, IBD, training, and entrepreneurship.</p>
-          </div>
-          <svg class="h-5" height="20" width="20">
-              <circle cx="10" cy="10" r="8" stroke="transparent" fill="white"></circle>
-          </svg>
-      </div>
-      <nav class="home-nav relative p-3 w-1/3 mt-auto text-grey-lightest text-lg">
-          <div class="text-right py-1 text-grey-lightest relative">
-              <a href="#now" class="font-black">Now</a>
-          </div>
-          <div class="border-t-4 border-solid border-grey-lightest text-right text-brand-light relative py-1">
-            <a href="/products" class="font-black">Crohn's Cookbook</a>
-          </div>
-          <div class="border-t-4 border-solid border-grey-lightest text-right text-brand-light relative py-1">
-              <a href="/update" class="font-black">Updates</a>
-          </div>
-          <div class="border-t-4 border-solid border-grey-lightest text-right text-brand-light relative py-1">
-                  <a href="/post" class="font-black">Posts</a>
-          </div>
+  <div class="flex-end header-content">
+    <div class="relative title pr-4 border-r-thick border-solid border-grey-lightest w-6 items-end">
+        <h1>
+            Start where you are </br> and begin again.
+        </h1>
+        <div class="border-b-thick border-solid border-grey-lightest text-right py-4 ">
+            <p class="mb-1"><a href="https://twitter.com/airjoshb">Joshua</a> is passionate about making life better with training, cooking, and writing.</p>
+        </div>
+        <svg class="h-5" height="20" width="20">
+            <circle cx="10" cy="10" r="8" stroke="transparent" fill="white"></circle>
+        </svg>
+    </div>
+    <nav class="home-nav relative p-3 w-3 mt-auto text-grey-lightest text-lg">
+        <div class="text-right py-1 text-grey-lightest relative">
+            <a href="#now" class="font-black">Now</a>
+        </div>
+        <div class="border-t-4 border-solid border-grey-lightest text-right text-brand-light relative py-1">
+        <%= link_to "Crohn's Cookbook", product_path(id: "the-crohn-s-disease-aip-cookbook"), class:"font-black" %>
+        </div>
+        <div class="border-t-4 border-solid border-grey-lightest text-right text-brand-light relative py-1">
+            <a href="/update" class="font-black">Updates</a>
+        </div>
+        <div class="border-t-4 border-solid border-grey-lightest text-right text-brand-light relative py-1">
+                <a href="/post" class="font-black">Posts</a>
+        </div>
 
-          <div class="border-t-4 border-solid border-grey-lightest text-right text-grey-lightest relative py-1">
-                  <a href="#about" class="font-black">About Joshua</a>
-          </div>
-      </nav>
+        <div class="border-t-4 border-solid border-grey-lightest text-right text-grey-lightest relative py-1">
+                <a href="#about" class="font-black">About Joshua</a>
+        </div>
+    </nav>
   </div>
 </header>

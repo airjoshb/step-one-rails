@@ -3,15 +3,16 @@
 html, body 
 	box-sizing: border-box 
 	margin: 0 
-	font-family: $standard-header 
+	font-family: $standard-font
 	color: $standard-black 
 	font-size: 16px 
 	line-height: 1.5em 
 	font-weight: 400 
-* 
-	[data-button] 
+*
+  [data-button] 
 		cursor: pointer 
-		user-select: none 
+		user-select: none
+
 h1,
 .h1 
 	font-family: $brand-font
@@ -66,6 +67,7 @@ h6,
 	margin: 0 
 p
 	margin: 0 
+  letter-spacing: .2rem
   
 .b1 
 	font-size: 20px 
@@ -79,23 +81,22 @@ p
 	font-size: 14px 
 	text-transform: uppercase 
 	font-weight: 600 
-
 hr
   width: 80%
   color: $grey-crumb
-  border: none;
-  border-top: 3px double $grey-crumb;
-  overflow: visible;
-  text-align: center;
-  height: 5px;
+  border: none
+  border-top: 3px double $grey-crumb
+  overflow: visible
+  text-align: center
+  height: 5px
   &:after
-    background-color: $standard-light-grey
-    content: '§'
-    padding: 0 4px
-    position: relative
-    top: -13px;
+  background-color: $standard-light-grey
+  content: '§'
+  padding: 0 4px
+  position: relative
+  top: -13px
 section
-  padding-bottom: 30px;
+  padding-bottom: 30px
 
 .bannerContainer 
   display: flex
@@ -105,14 +106,14 @@ section
   padding: 50px 32px
   background-color: $standard-light-grey
   h1 
-    font-size: 52px
-    font-weight: 400
-    line-height: 62px
+  font-size: 52px
+  font-weight: 400
+  line-height: 62px
   .subtitleStyle 
-    font-weight: normal 
-    font-size: 14px 
-    line-height: 17px 
-    margin-top: 32px 
+  font-weight: normal 
+  font-size: 14px 
+  line-height: 17px 
+  margin-top: 32px 
 
 .center 
   text-align: center
@@ -127,71 +128,36 @@ li:first-child, .trix-content li:first-child
 ol, .trix-content ol 
   margin-bottom: 1em
   li
-    font-weight: 600
+  font-weight: 600
 .trix-content 
   font-family: $standard-header
-  font-size: 1.3em;
-  line-height: 1.5em;
+  font-size: 1.3em
+  line-height: 1.5em
   img
-    border: thin solid $grey-crumb
-    padding: 1.5em 1em
-    background-color: $standard-light-grey 
+  border: thin solid $grey-crumb
+  padding: 1.5em 1em
+  background-color: $standard-light-grey 
   a
-    border-bottom: $grey-crumb thin solid;
-    &:hover
-      border-color: $standard-gold
-      color: $standard-gold
+  border-bottom: $grey-crumb thin solid
+  &:hover
+  border-color: $standard-gold
+  color: $standard-gold
   action-text-attachment a
-    text-decoration: none;
-    border: 0 none;
+  text-decoration: none
+  border: 0 none
 .left
   float: left
 .right
   float: right
-
-@media only screen and (max-width:767px) 
-  h1,.h1
-    font-size: 55px 
-  h2,.h2 
-    font-size: 50px 
-    font-size: 28px 
-  h3,
-    .h3 
-    font-size: 40px 
-    font-size: 26px 
-  h4,
-    .h4 
-    font-size: 30px 
-    font-size: 24px 
-  h5,.h5 
-    font-size: 25px 
-    font-size: 22px
-  h6,
-    .h6 
-    font-size: 20px 
-@media only screen and (max-width:480px) 
-  h1,.h1 
-    font-size: 30px 
-  h2,
-  .h2 
-    font-size: 28px
-  h3,
-  .h3
-    font-size: 26px
-  h4,
-  .h4
-    font-size: 24px
-  h5,
-  .h5 
-    font-size: 22px
-
+.italic
+  font-style: italic
 .subtitle 
   font-weight: 500 
   font-size: 20px 
 .subtitle 
   &.small 
-    font-weight: 500 
-    font-size: 18px 
+  font-weight: 500 
+  font-size: 18px 
 .small 
   font-size: 14px 
 .overline 
@@ -201,8 +167,8 @@ ol, .trix-content ol
   letter-spacing: 0.5px 
 input 
   &:focus 
-    outline: none !important 
-    outline-offset: none !important 
+  outline: none !important 
+  outline-offset: none !important 
 a 
   text-decoration: none 
   color: $standard-black 
@@ -211,18 +177,20 @@ a
   text-transform: uppercase 
 .hover-text-main 
   &:hover 
-    color: $standard-grey
+  color: $standard-grey
 ul 
   list-style: none 
   padding: 0 
   &.bullets 
-    margin-left: 40px 
-    list-style: disc 
-    li 
-      margin-bottom: 5px 
+  margin-left: 40px 
+  list-style: disc 
+  li 
+  margin-bottom: 5px 
 ol 
   margin: 0 
   padding-left: 1.8em 
+.p-3
+  padding: $space3
 .p-4 
   padding: $space4
 .p-5 
@@ -230,6 +198,9 @@ ol
 .py-4 
   padding-top: $space4 
   padding-bottom: $space4 
+.px-5
+  padding-left: $space5
+  padding-right: $space5
 .py-8 
   padding-top: $space8
   padding-bottom: $space8 
@@ -237,10 +208,14 @@ ol
   padding-top: $space3 
 .pt-4 
   padding-top: $space4
+.pt-5
+  padding-top: $space5
 .pb-0 
   padding-bottom: 0px 
 .pb-4 
   padding-bottom: $space4 
+.pr-4 
+  padding-right: $space4 
 .mb-0 
   margin-bottom: 0px 
 .mb-4 
@@ -251,6 +226,8 @@ ol
   margin-left: $space4 
 .mr-4 
   margin-right: $space4
+.mt-auto
+  margin-top: auto
 .mt-2 
   margin-top: $space2
 .mt-4 
@@ -276,7 +253,6 @@ ol
   width: 100% 
   display: flex 
   justify-content: flex-end 
-  align-items: center 
 .flex-around 
   width: 100% 
   display: flex 
@@ -290,6 +266,36 @@ ol
 .flex-middle 
   display: flex 
   align-items: center 
+
+.items-start 
+    -webkit-box-align: start
+    -ms-flex-align: start
+    align-items:flex-start
+
+
+.items-end 
+    -webkit-box-align: end
+    -ms-flex-align: end
+    align-items:flex-end
+
+
+.items-center 
+    -webkit-box-align: center
+    -ms-flex-align: center
+    align-items:center
+
+
+.items-baseline 
+    -webkit-box-align: baseline
+    -ms-flex-align: baseline
+    align-items:baseline
+
+
+.items-stretch 
+    -webkit-box-align: stretch
+    -ms-flex-align: stretch
+    align-items:stretch
+
 .grid 
   display: grid 
   gap: 40px 
@@ -333,16 +339,16 @@ ol
   margin-bottom: 20px 
   position: relative 
   &.mb-0 
-    margin-bottom: 0px 
+  margin-bottom: 0px 
   textarea 
-    resize: none 
-    height: 150px 
+  resize: none 
+  height: 150px 
   select 
-    padding: 9px 10px 
+  padding: 9px 10px 
   .error 
-    color: $error 
-    font-size: 12px 
-    line-height: 15px 
+  color: $error 
+  font-size: 12px 
+  line-height: 15px 
 .formField input[type='text'],
 .formField input[type='email'],
 .formField input[type='number'],
@@ -383,23 +389,23 @@ ol
   flex-wrap: wrap 
   padding: 5px 0 
   &:nth-child(odd) 
-    background-color: #efefef 
+  background-color: #efefef 
 .dataTableCell 
   margin-left: 5px 
   padding: 0 5px 
   display: flex 
   align-items: center 
   &.alignTop 
-    align-items: flex-start 
+  align-items: flex-start 
   &.alignBottom 
-    align-items: flex-end 
+  align-items: flex-end 
   &:first-child 
-    margin-left: 0 
+  margin-left: 0 
 .dataTableActionsCell 
   margin-left: auto 
   [data-button] 
-    margin-left: 5px 
-    cursor: pointer 
+  margin-left: 5px 
+  cursor: pointer 
 .dataTableEditor 
   width: 100% 
   overflow: hidden 
@@ -409,15 +415,15 @@ ol
   padding: 0 5px 
   transition: all 0.3s ease-in-out 
   &.active 
-    opacity: 1 
-    visibility: visible 
-    height: auto 
-    padding-top: 10px 
+  opacity: 1 
+  visibility: visible 
+  height: auto 
+  padding-top: 10px 
 .box 
   border: 1px solid #eee 
   padding: 10px 
   &:nth-child(odd) 
-    background-color: #efefef 
+  background-color: #efefef 
 .text-center 
   text-align: center 
 .text-right 
@@ -440,9 +446,9 @@ ol
   transition: all 0.3s ease-in-out 
 .btnGroup 
   & > * 
-    margin-right: 10px 
+  margin-right: 10px 
   & > *:last-child 
-    margin-right: 0px 
+  margin-right: 0px 
 .disable-action 
   pointer-events: none 
   user-select: none 
@@ -456,3 +462,326 @@ ol
   padding: 30px 
   background-color: $bg-light-gray 
   text-align: center 
+.fill-brand
+  fill: $brand
+
+.border-solid 
+  border-style: solid
+
+.border-dashed 
+  border-style: dashed
+
+.border-dotted 
+  border-style: dotted
+
+.border-none 
+  border-style: none
+
+.border-0
+  border-width: 0
+.border-2 
+  border-width: 2px
+
+.border-4 
+  border-width: 4px
+
+.border-8 
+  border-width: 8px
+
+.border 
+  border-width: 1px
+
+.border-thick 
+  border-width: .8rem
+
+.border-t-0 
+  border-top-width: 0
+
+.border-r-0 
+  border-right-width: 0
+.border-b-0 
+  border-bottom-width: 0
+  border-top: none
+  border-left: none
+.border-l-0 
+  border-left-width: 0
+
+.border-t-2 
+  border-top-width: 2px
+
+.border-r-2 
+  border-right-width: 2px
+
+.border-b-2 
+  border-bottom-width: 2px
+  border-top: none
+  border-left: none
+.border-l-2 
+  border-left-width: 2px
+
+.border-t-4 
+  border-top-width: 4px
+  border-right: none
+  border-left: none
+  border-bottom: none
+.border-r-4 
+  border-right-width: 4px
+
+.border-b-4 
+  border-bottom-width: 4px
+  border-top: none
+  border-left: none
+.border-l-4 
+  border-left-width: 4px
+
+.border-t-8 
+  border-top-width: 8px
+
+.border-r-8 
+  border-right-width: 8px
+
+.border-b-8 
+  border-bottom-width: 8px
+  border-top: none
+  border-left: none
+.border-l-8 
+  border-left-width: 8px
+
+.border-t 
+  border-top-width: 1px
+
+.border-r 
+  border-right-width: 1px
+
+.border-b 
+  border-bottom-width: 1px
+  border-top: none
+  border-left: none
+.border-l 
+  border-left-width: 1px
+
+.border-t-thick 
+  border-top-width: .8rem
+
+.border-r-thick 
+  border-right-width: .8rem
+  border-top: none
+  border-left: none
+  border-bottom: none
+.border-b-thick 
+  border-bottom-width: .8rem
+  border-top: none
+  border-left: none
+  border-right: none
+.border-l-thick 
+  border-left-width: .8rem
+
+.border-green-brand 
+  border-color: $standard-green
+
+.border-grey-lightest
+  border-color: $bg-light-gray
+
+.text-grey-lightest
+  color: $bg-light-gray
+
+.text-lg
+  font-size: 20px
+.text-5xl
+  font-size: 3.8rem
+.font-serif
+  font-family: $brand-font
+.font-medium
+  font-weight: 500
+.font-black
+    font-weight: 900
+
+.w-full 
+  width: 100%
+
+.w-screen 
+  width: 100vw
+.w-6
+  width: 60%
+.w-3
+  width: 30%
+.z-0 
+  z-index: 0
+
+.z-10 
+  z-index: 10
+
+.z-20 
+  z-index: 20
+
+.z-30 
+  z-index: 30
+
+.z-40 
+  z-index: 40
+
+.z-50 
+  z-index: 50
+
+.z-auto 
+  z-index: auto
+.h-1 
+  height: .25rem
+
+.h-2 
+  height: .5rem
+
+.h-3 
+  height: .75rem
+
+.h-4 
+  height: 1rem
+
+.h-5 
+  height: 1.25rem
+
+.h-6 
+  height: 1.5rem
+
+.h-8 
+  height: 2rem
+
+.h-10 
+  height: 2.5rem
+
+.h-12 
+  height: 3rem
+
+.h-16 
+  height: 4rem
+
+.h-24 
+  height: 6rem
+
+.h-32 
+  height: 8rem
+
+.h-42 
+  height: 10rem
+
+.h-48 
+  height: 12rem
+
+.h-64 
+  height: 16rem
+
+.h-auto 
+  height: auto
+
+.h-px 
+  height: 1px
+
+.h-full 
+  height: 100%
+
+.h-screen 
+  height: 100vh
+.w-64 
+  width: 16rem
+.l-0 
+  left: 0
+
+.t-0
+  top: 0
+.t-225
+  top: -150px
+
+.relative
+  position: relative
+
+.absolute
+  position: absolute
+  
+.overflow-hidden
+  overflow: hidden
+
+.image-header 
+  height: 110%
+
+ 
+header img
+  object-fit: contain
+header .logo 
+  margin-bottom: 5rem
+  svg 
+    fill: $brand
+    
+.header-content 
+  a
+    font-weight: 700
+    color: $standard-light-grey
+    -webkit-box-shadow: inset 0 -1px 0 $standard-light-grey
+    box-shadow: inset 0 -1px 0 $standard-light-grey
+    &:hover
+      color: lighten($standard-green, 10)
+      -webkit-box-shadow: inset 0 -1px 0 #169675
+      box-shadow: inset 0 -1px 0 #169675
+  h1 
+    font-size: 4rem
+    text-align: right
+    line-height: 1
+    color: $standard-light-grey
+  p 
+    font-weight: 600
+    font-size: 1.2rem
+    text-align: right
+    color: $standard-light-grey
+  nav
+    justify-items: end 
+    a
+      color: $standard-light-grey
+      font-family: $brand-font
+      -webkit-box-shadow: unset
+      box-shadow: unset
+      &:hover
+        -webkit-box-shadow: unset
+        box-shadow: unset
+    
+
+    
+@media only screen and (max-width: 767px) 
+  h1,.h1
+    font-size: 55px 
+  h2,.h2 
+    font-size: 50px 
+    font-size: 28px 
+  h3,.h3 
+    font-size: 40px 
+    font-size: 26px 
+  h4,.h4 
+    font-size: 30px 
+    font-size: 24px 
+  h5,.h5 
+    font-size: 25px 
+    font-size: 22px
+  h6, .h6 
+    font-size: 20px
+  header
+    .header-content 
+      h1 
+        font-size: 1.8rem 
+      p 
+        font-size: 1.2rem
+  header .logo svg 
+    fill: $standard-light-grey !important
+    
+@media only screen and (max-width: 480px) 
+  h1,.h1 
+  font-size: 30px 
+  h2,
+  .h2 
+  font-size: 28px
+  h3,
+  .h3
+  font-size: 26px
+  h4,
+  .h4
+  font-size: 24px
+  h5,
+  .h5 
+  font-size: 22px

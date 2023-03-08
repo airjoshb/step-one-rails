@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_04_221907) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_211549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_221907) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_order_id"], name: "index_addresses_on_customer_order_id"
+  end
+
+  create_table "artifacts", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "image"
+    t.bigint "category_id"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_artifacts_on_category_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -232,6 +243,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_221907) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "customer_orders"
+  add_foreign_key "artifacts", "categories"
   add_foreign_key "customer_orders", "customers"
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "orderables", "carts"
