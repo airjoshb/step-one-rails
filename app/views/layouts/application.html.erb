@@ -13,9 +13,9 @@
   </head>
 
   <body>
-    <%= render "layouts/header" %>
-    <main>
+    <main class="flex">
       <%= yield %>
+      <%= render "layouts/navigation" %>
     </main>
     <footer><%= render "layouts/footer" %></footer>
   </body>

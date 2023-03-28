@@ -2,11 +2,8 @@
 
 #quote, #pageContent 
   display: flex
-  flex-direction: column
-  align-items: center
   justify-content: center
-  padding: 100px 32px
-  background-color: $standard-light-grey
+  padding: 50px 32px
 
   span 
     font-weight: 500
@@ -25,6 +22,15 @@
     text-align: center
     max-width: 720px
 
+  #quote
+    a
+      font-weight: 500
+      font-size: 1.4rem
+      font-family: $brand-font
+
+#pageContent  
+  flex-direction: column
+  align-items: center
 
 @media (max-width: 600px) 
   #quote p 

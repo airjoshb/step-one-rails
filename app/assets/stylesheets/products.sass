@@ -66,7 +66,7 @@
         padding: 0 0 20px 20px
 
 #shop, #page, #post
-  max-width: 80%
+  width: 80%
   .bakery-categories
     display: flex
     justify-content: space-around
@@ -89,18 +89,29 @@
       line-height: 17px 
       margin-top: 32px 
 
-  .productContainer, .pageContainer, .postContainer
+  .productContainer, .pageContainer
     margin-top: 32px 
     margin-left: 8px 
     margin-right: 8px 
   .postContainer .content
-    width: 100%
+    width: 67.2%
     margin: 0 auto
-    padding-bottom: 2em
+    color: #333;
     .post
       width: 100%
       height: auto
       overflow: hidden
+      .trix-content
+        width: 97%
+        div:first-of-type:first-letter 
+            float: left
+            font-size: 107px
+            padding-top: 0
+            padding-right: 7px
+            line-height: 77px
+            -webkit-font-smoothing: subpixel-antialiased;
+            font-style: normal
+            font-weight: 700
       a
         display: flex
         flex-direction: row
@@ -108,9 +119,9 @@
       
     .postTitle
       text-align: center
-      padding: 4em 0
+      padding: 3em 0
     .postDate
-      font-size: 1.2em
+      font-size: 1em
       color: $standard-dark-grey
       padding-bottom: 2em
     .date
@@ -118,10 +129,9 @@
       color: $standard-gold
       margin-bottom: 1.5em
     hr
-      width: 100%
-      color: $grey-one
+      color: $standard-gold
       border: none;
-      border-top: 1px solid $grey-one
+      border-top: 1px solid $standard-gold
       overflow: visible;
       text-align: center;
       height: 5px;
@@ -286,8 +296,14 @@
   font-weight: 500
 #post h1 
   font-family: $standard-header
-#postRow a
-  flex-direction: column
+#postRow 
+  .post
+    -webkit-box-flex: 1
+    -ms-flex: 1 1 31.33%
+    flex: 1 1 31.33%
+    h3
+      height: 208px
+      text-align: end
 
 @media (hover: hover) 
   .primary:hover 

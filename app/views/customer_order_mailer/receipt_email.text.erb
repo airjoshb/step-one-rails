@@ -1,7 +1,7 @@
-This is a receipt for your recent purchase at Switch Bakery on <%= @order.created_at.strftime("%B #{@order.created_at.day.ordinalize}")%>.
-" alt="Switch Bakery Logo" width="100" />
+This is a receipt for your recent purchase at Step One on <%= @order.created_at.strftime("%B #{@order.created_at.day.ordinalize}")%>.
+" alt="Step One Logo" width="100" />
 Hi <%=@customer.name%>,
-Thanks for ordering from Switch Bakery. This email is the receipt for your purchase.
+Thanks for ordering from Step One. This email is the receipt for your purchase.
 Order #<%=@order.guid%>
 <%= @order.created_at.strftime("%B #{@order.created_at.day.ordinalize}, %Y")%>
 <% @order.orderables.each do |item|%>
@@ -18,7 +18,7 @@ Orders will be delivered to Santa Cruz area locations on Tuesday and Thursdays, 
 If you have any questions, simply reply to this email.
 Cheers,
 Amanda & Joshua
-This purchase will appear as “Switch Bakery” on your credit card statement for your card ending in <%=@order.payment_method.last_4 %>.
+This purchase will appear as “Step One” on your credit card statement for your card ending in <%=@order.payment_method.last_4 %>.
 Frazley Adventures, LLC
 PO Box 4138
 Monterey, CA 93942

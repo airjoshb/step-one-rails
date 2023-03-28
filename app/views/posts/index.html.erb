@@ -1,43 +1,73 @@
 <% content_for :head do %>
-  <title>The latest updates from Switch Bakery</title>
-  <meta name="description" content="all of the latest news from our gluten-free bakery in Monterey" />
-  <meta property="og:title", content="the latest updates from Switch Bakery" />
-  <meta property="og:site_name", content="Switch Bakery" />
+  <title>The latest updates from Step One</title>
+  <meta name="description" content="all of the latest news from our gluten-free bakery " />
+  <meta property="og:title", content="the latest updates from Step One" />
+  <meta property="og:site_name", content="Step One" />
   <meta property="og:description", content="" />
   <meta property="og:type", content="articles" />
-  <meta property="og:url", content="<%= updates_url %>" />
-  <meta property="og:image", content="<%=@posts.first.image.url if @posts.first.image.attached? %>" />
-  <meta name="twitter:title", content="the latest updates from Switch Bakery" />
+  <meta property="og:url", content="<%= posts_url %>" />
+  <meta property="og:image", content="<%=@first_post.image.url if @first_post.image.attached? unless @posts.empty? %>" />
+  <meta name="twitter:title", content="the latest updates from Step One" />
   <meta name="twitter:description", content="" />
-  <meta name="twitter:image", content="<%=@posts.first.image.url if @posts.first.image.attached? %>" />
+  <meta name="twitter:image", content="<%=@first_post.image.url if @first_post.image.attached? unless @posts.empty? %>" />
   <meta name="twitter:card", content="summary" />
-  <meta name="twitter:url", content="<%=updates_url %>" />
-  <meta itemprop="image", content="<%=@posts.first.image.url if @posts.first.image.attached? %>" />
-  <link rel="canonical" href="<%= updates_url %>" />
+  <meta name="twitter:url", content="<%= posts_url %>" />
+  <meta itemprop="image", content="<%=@first_post.image.url if @first_post.image.attached? unless @posts.empty?%>" />
+  <link rel="canonical" href="<%= posts_url %>" />
 <% end %>
 <% content_for content_for :html do %>
   "http://schema.org/Articles"
 <% end %>
 
-<%= render "/main/banner", title: "the latest updates from the bakery", subtitle: "" %>
-<section id="post">
+<section id="post" class="w-full">
   <div class="container">
     <div class="postContainer">
-      <div class="content">
-        <% @posts.group_by {|t| t.created_at.beginning_of_month }.each do |date, posts| %>
-          <div class="date"><%= date.strftime("%B, %Y") %></div>
-          <% for post in posts.reverse %>
-            <div class="post">
-              <%= link_to update_path(post) do %>
-                <%= cl_image_tag(post.image.key, width: 150, height: 150, crop: :fill, gravity: 'center', alt: post.title, class: "border mr-4") if post.image.attached? %>
-                <div class="">
-                  <h5><%= post.title %></h5>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
+      <div class="content posts">
+        <% if @posts.empty? %>
+          <p>There are no posts for this category</p>
+        <% else %>
+          <div class="post mb-4">
+            <%= link_to cl_image_tag(@first_post.image.key, width: 385, crop: :fill, gravity: 'center', alt: @first_post.title, class: "border-r-8 border-green-brand border-solid mr-4"), post_path(@first_post) if @first_post.image.attached? %>
+            <%= link_to post_path(@first_post) do %>
+              <h1><%= @first_post.title %></h1>
+            <% end %>
+            <div class="line-clamp"><%= @first_post.shortened_content(400) %></div>
+          </div>
         <% end %>
       </div>
+      <div id="postRow" class="flex wrap">
+        <% for post in @posts %>
+          <div class="post mb-4 p-4">
+            <div class="flex mb-4">
+              <%= link_to post_path(post), class:"flex" do %>
+                <h3 class="vert-rl"><%= post.title %></h3>
+                <%= cl_image_tag post.image.key, width: 385, height: 200, crop: :fill, gravity: 'center', alt: post.title, class: "contain border-b-8 border-green-brand border-solid mr-4" %>
+              <% end %>
+            </div>
+            <div  class="line-clamp">
+              <svg class="inline h-4 mr-1 align-middle green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg>
+              <%= post.shortened_content(400) %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <section class="posts">
+        <h4>Some More</h4>
+        <% unless @more.blank? %>
+          <% @more.group_by {|t| t.created_at.beginning_of_month }.each do |date, posts| %>
+            <div class="date"><%= date.strftime("%B, %Y") %></div>
+            <% for post in posts %>
+              <div class="post">
+                <%= link_to post_path(post) do %>
+                  <div class="">
+                    <h5><%= post.title %></h5>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </section>
     </div>
   </div>
 </section>

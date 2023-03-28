@@ -1,5 +1,5 @@
 <div id='header'>
-  <container size='large' spacing='min'>
+  <container>
     <div class="header"">
       <div class="linkContainer">
         <nav role='presentation'>
@@ -7,7 +7,7 @@
           <% for page in @nav %>
             <%= link_to page.slug, page_path(page.slug), class: "navLink" %>
           <% end %>
-          <%= link_to "updates", updates_path, class: "navLink" if Post.any? %>
+          <%= link_to "posts", posts_path, class: "navLink" if Post.any? %>
         </nav>
       </div>
       <%= render "layouts/brand" %>

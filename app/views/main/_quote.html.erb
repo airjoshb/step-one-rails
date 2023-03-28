@@ -1,7 +1,12 @@
  <section id="quote">
-  <div class="quote-content">
-    <p><%= artifact.description %></p>
-    <%= link_to "check it out ->", artifact.url, class: "" %>
+  <div class="quoteContent flex column px-5 ">
+    <%= artifact.description %>
+    <% if artifact.url.present? %>
+      <div class="align-end pt-5 ">
+        <%= link_to "check it out ->", artifact.url %>
+      </div>
+    <% end %>
   </div> 
-  <%= image_tag artifact.image.key(width: 400, crop: :scale), alt: artifact.name %>
+  <%= cl_image_tag(artifact.image.key, width: 800, crop: :scale, class: "border-l-thick border-solid border-green-brand", alt: artifact.name) %>
+  
 </section>

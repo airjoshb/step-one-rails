@@ -1,0 +1,41 @@
+<div id="sidebar-nav" class="w-2 p-5 text-right column">
+    <div class="logo mb-4 right">
+        <%= link_to root_path, class:"" do %>
+          <%= render 'main/logo' %>
+        <% end %>
+    </div>
+    <nav id="main" class="w-full text-right align-center clear">
+        <div class="border-t-4 border-solid border-brand relative py-1">
+            <%= active_link_to "Now", now_path %>
+        </div>
+
+        <div class="border-t-4 border-solid border-brand relative py-1">
+            <%= active_link_to "Crohn's Cookbook", products_path %>
+        </div>
+        
+        <div class="border-t-4 border-solid border-brand relative py-1 posts-nav ">
+            <%= active_link_to "Posts", posts_path %>
+            <% for category in Category.no_children.where.not(name: "Updates") %>
+                <%= deep_active_link_to category.name, posts_path(category: category) %>
+                <% if current_page?(posts_path(category: category))  %>
+                    <% for child in category.children %>
+                        <%= deep_active_sub_link_to child.name, posts_path(category: child) %>
+                    <% end %>
+                <% elsif @category.present? && @category.parent == category  %>
+                    <% for sibling in @category.subcategories %>
+                        <%= deep_active_sub_link_to sibling.name, posts_path(category: sibling) %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="border-t-4 border-solid border-brand relative py-1">
+            <%= active_link_to "About Joshua", about_path %>
+        </div>
+        <div class="pt-5 pb-3" >
+        <%= link_to "https://twitter.com/airjoshb" do %>
+          <%= image_tag "icons-twitter.svg", alt: "mastodon", width: 22, height: 24 %>
+        <% end %>
+        </div>
+    </nav>
+
+</div>

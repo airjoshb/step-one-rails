@@ -1,30 +1,19 @@
-<div class="container">
-  <div class="content">
-    <div class="contentTop">
-      <div class="footerLinkContainer" >
-        <div class="footerLinks">
-          <% for page in @pages.where.not(slug: "home") %>
-            <span class="linkTitle">
-              <%= link_to page.title.downcase, page_path(page.slug), class: "link" %>
-            </span>
-          <% end %>
-        </div>       
-      </div>
-      <div class="newsLetter">
-        <div class="newsLetterContent">
-          <div class="socialContainer">
-              <div class="socialIconContainer">
-                <Icon symbol={'instagram'}></Icon>
-              </div>
-            
-          </div>
-          <div class="copyrightContainer">
-            <span>
-              A Frazley Adventures, LLC joint ©<%= Date.today.year %>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="m-auto">
+  <div class="flex-center column py-4">
+    <ul>
+      <li class="">
+        <a href="https://twitter.com/airjoshb" class="px-2 pt-2 pb-3 link bg-white relative">
+          <%= image_tag "icons-twitter.svg", alt: "mastodon", width: 22, height: 24 %>
+        </a>
+      </li>
+      <li>  <div class="text-center p-4"><%= image_tag "step-one-icon.svg", class: "logo", alt: "Step One Logo Hand" %></div></li>
+      <li class="">
+        <a rel="me" href="https://mastodon.social/@airjoshb" class="px-2 pt-2 pb-3 link bg-white rounded-full relative">
+          <%= image_tag "icons-mastodon.svg", alt: "mastodon", width: 22, height: 24 %>
+        </a>
+      </li>
+    </ul>
+    <p class="py-4">Please reach out by email, josh at gotostepone dot com</p>		
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>	
+  </div>	
 </div>

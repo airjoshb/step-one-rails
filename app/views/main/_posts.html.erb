@@ -1,8 +1,21 @@
-<% @posts.reverse.each do |post| %>
-  <%= link_to update_path(post) do %>
-    <div class="imageContainer">
-      <%= cl_image_tag(post.image.key, width: 200, height: 200, crop: :fill, gravity: 'center', alt: post.title) %>
-      <h5 class="shadowTitle"><%= post.title %></h5>
+<% @posts.group_by {|t| t.created_at.beginning_of_month }.each do |date, posts| %>
+  <div class=" border-t-4 border-solid border-green-brand date flex-end"><%= date.strftime("%B, %Y") %></div>
+  <% posts.reverse.each do |post| %>
+    <div class="flex-start">
+      <% unless post.image.blank? %>
+        <div class="imageContainer pr-4">
+          <%= cl_image_tag(post.image.key, width: 200, height: 200, crop: :fill, gravity: 'center', class: " border-r border-gold-brand border-solid", alt: post.title) %>
+        </div>
+      <% end %>
+      <div class="contentContainer mb-2 border-b border-gold-brand border-solid w-full">
+        <%= link_to post do %>
+          <h3 class="shadowTitle mb-2"><%= post.title %></h5>
+          <div class="post">
+            <%= post.content %>
+          </div>
+        <% end %>
+      </div>
     </div>
+    <div class="flex-end"><svg class="gold-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg></div>
   <% end %>
 <% end %>

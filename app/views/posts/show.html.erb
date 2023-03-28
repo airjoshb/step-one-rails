@@ -1,43 +1,47 @@
 <% content_for :head do %>
-  <title><%=@post.title %> | Switch Bakery</title>
+  <title><%=@post.title %> | Step One</title>
   <meta name="description" content="<%= @post.content.to_plain_text.truncate(300) %>" />
-  <meta property="og:title", content="<%=@post.title %> | Switch Bakery" />
-  <meta property="og:site_name", content="Switch Bakery" />
+  <meta property="og:title", content="<%=@post.title %> | Step One" />
+  <meta property="og:site_name", content="Step One" />
   <meta property="og:description", content="<%= @post.content.to_plain_text.truncate(300) %>" />
   <meta property="og:type", content="article" />
-  <meta property="og:url", content="<%= update_url %>" />
+  <meta property="og:url", content="<%= post_url %>" />
   <meta property="og:image", content="<%=@post.image.url if @post.image.attached? %>" />
-  <meta name="twitter:title", content="<%=@post.title %> | Switch Bakery in Monterey" />
+  <meta name="twitter:title", content="<%=@post.title %> | Step One" />
   <meta name="twitter:description", content="<%= @post.content.to_plain_text.truncate(300) %>" />
   <meta name="twitter:image", content="<%=@post.image.url if @post.image.attached? %>" />
   <meta name="twitter:card", content="summary" />
-  <meta name="twitter:url", content="<%=update_url %>" />
+  <meta name="twitter:url", content="<%=@post_url %>" />
   <meta itemprop="headline", content="<%=@post.title %>" />
   <meta itemprop="description", content="<%= @post.content.to_plain_text.truncate(300) %>" />
   <meta itemprop="image", content="<%=@post.image.url if @post.image.attached? %>" />
   <meta itemprop="datePublished", content="<%=@post.created_at.to_time.iso8601 %>" />
-  <link rel="canonical" href="<%= update_url %>" />
+  <link rel="canonical" href="<%= @post_url %>" />
 <% end %>
 <% content_for content_for :html do %>
   "http://schema.org/Article"
 <% end %>
 
-<div class="bannerContainer">
-  <%= cl_image_tag(@post.image.key, width: 600, height: 600, crop: :scale, alt: @post.title)  if @post.image.attached? %>
-</div>
 <section id="post">
-  <div class="container">
     <div class="postContainer">
+      <div class="bannerContainer">
+        <%= cl_image_tag(@post.image.key, width: 600, height: 600, crop: :scale, alt: @post.title)  if @post.image.attached? %>
+      </div>
       <div class="content">
         <div class="postTitle">
-          <%= image_tag 'switch-bakery-gluten-free-bread.png', width: 50, alt: "Gluten Free Bread Delivery Fox on a Bike" %>
+          <%= image_tag 'step-one-icon.svg', width: 50, alt: "Step One Hand Icon" %>
           <h1><%= @post.title %></h1>
-          <div class="postDate"><%= time_ago_in_words @post.created_at %> ago</div>
-          <hr/>
+          <i class="postDate">posted <%= time_ago_in_words @post.created_at %> ago in <%= @post.category.parent.present? ? @post.category.parent.name + " & " + @post.category.name : @post.category.name %></i>
+        </div>
+        <div class="post border-t-thick border-solid border-green-brand">
+          <div class="flex-end">
+        <svg class="h-5 green-brand mb-4" height="20" width="20" preserveAspectRatio="xMaxYMax meet">
+            <circle cx="10" cy="10" r="8" stroke="transparent" fill="brand" ></circle>
+          </svg>
         </div>
         <%= @post.content %>
+        </div>
       </div>
     </div>
-  </div>
 </div>
 </section>

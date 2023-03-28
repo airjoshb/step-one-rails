@@ -17,6 +17,9 @@ class CategoryResource < Avo::BaseResource
   field :name, as: :text
   field :image, as: :file
   field :products, as: :has_many
+  field :row_order, as: :number
+  field :children, as: :has_many
+  field :parent, as: :belongs_to
   # add fields here
 
 end

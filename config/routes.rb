@@ -25,9 +25,9 @@ Rails.application.routes.draw do
 
   root 'main#index'
   resources :products 
-  resources :updates, controller: :posts
-  get '/now', to: 'pages#show', slug: 'now'
-  get '/joshua', to: 'pages#show', slug: 'joshua', as: :page
+  resources :posts
+  get '/now', to: 'posts#index', category: 'updates', as: :now
+  get '/joshua', to: 'pages#show', slug: 'joshua', as: :about
   get '/shop', to: 'products#index', as: 'shop'
   post '/create-checkout-session', to: 'create_checkout_sessions#create', as: 'checkout-session'
   post '/webhook', to: 'create_checkout_sessions#webhook', as: 'webhook'
