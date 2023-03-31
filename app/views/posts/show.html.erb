@@ -25,13 +25,18 @@
 <section id="post">
     <div class="postContainer">
       <div class="bannerContainer">
-        <%= cl_image_tag(@post.image.key, width: 600, height: 600, crop: :scale, alt: @post.title)  if @post.image.attached? %>
+        <%= cl_image_tag(@post.image.key, width: 660, alt: @post.title)  if @post.image.attached? %>
       </div>
       <div class="content">
         <div class="postTitle">
           <%= image_tag 'step-one-icon.svg', width: 50, alt: "Step One Hand Icon" %>
           <h1><%= @post.title %></h1>
-          <i class="postDate">posted <%= time_ago_in_words @post.created_at %> ago in <%= @post.category.parent.present? ? @post.category.parent.name + " & " + @post.category.name : @post.category.name %></i>
+          <i class="postDate">posted <%= time_ago_in_words @post.created_at %> ago in <%= @post.category.parent.present? ? @post.category.parent.name + " :: " + @post.category.name : @post.category.name %></i>
+          <div class="mt-4">
+            <%= link_to "//twitter.com/share?url=#{post_url(@post)}&amp;text=I%20just%20saw%20this&amp;via=airjoshb", target: "_blank" do %>
+              <%= image_tag "icons-twitter.svg", alt: "twitter", width: 22, height: 24, class: "svg-light" %>
+            <% end %>
+          </div>
         </div>
         <div class="post border-t-thick border-solid border-green-brand">
           <div class="flex-end">

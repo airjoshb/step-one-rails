@@ -21,17 +21,35 @@
     line-height: 52px
     text-align: center
     max-width: 720px
-
-  #quote
-    a
-      font-weight: 500
-      font-size: 1.4rem
-      font-family: $brand-font
+  img
+    max-width: 800px
+  a
+    font-weight: 500
+    font-size: 1.4rem
+    font-family: $brand-font
 
 #pageContent  
   flex-direction: column
   align-items: center
+@media (max-width: 767px) 
+  .pageContent
+    width: 100%
+  #quote
+    display: flex;
+    padding: 0;
+    flex-direction: column-reverse;
 
+    img
+      max-width: 100%
+      border: none
+      margin-bottom: 2rem
+  #about
+    display: flex;
+    flex-direction: column;
+    img
+      margin: 0 auto 2rem
+      border-left: .8rem solid $standard-green
+      border-right: none
 @media (max-width: 600px) 
   #quote p 
     font-size: 22px

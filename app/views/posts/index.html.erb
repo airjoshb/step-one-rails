@@ -26,7 +26,7 @@
         <% if @posts.empty? %>
           <p>There are no posts for this category</p>
         <% else %>
-          <div class="post mb-4">
+          <div class="post mb-6  mt-6">
             <%= link_to cl_image_tag(@first_post.image.key, width: 385, crop: :fill, gravity: 'center', alt: @first_post.title, class: "border-r-8 border-green-brand border-solid mr-4"), post_path(@first_post) if @first_post.image.attached? %>
             <%= link_to post_path(@first_post) do %>
               <h1><%= @first_post.title %></h1>
@@ -35,13 +35,13 @@
           </div>
         <% end %>
       </div>
-      <div id="postRow" class="flex wrap">
+      <div id="postRow" class="">
         <% for post in @posts %>
-          <div class="post mb-4 p-4">
-            <div class="flex mb-4">
+          <div class="post mb-6 p-4">
+            <div class="flex content-end mb-4">
               <%= link_to post_path(post), class:"flex" do %>
                 <h3 class="vert-rl"><%= post.title %></h3>
-                <%= cl_image_tag post.image.key, width: 385, height: 200, crop: :fill, gravity: 'center', alt: post.title, class: "contain border-b-8 border-green-brand border-solid mr-4" %>
+                <%= cl_image_tag post.image.key, width: 360, height: 200, crop: :fill, gravity: 'center', alt: post.title, class: "contain border-b-8 border-green-brand border-solid mr-4" %>
               <% end %>
             </div>
             <div  class="line-clamp">
@@ -51,7 +51,7 @@
           </div>
         <% end %>
       </div>
-      <section class="posts">
+      <section class="posts mb-6">
         <h4>Some More</h4>
         <% unless @more.blank? %>
           <% @more.group_by {|t| t.created_at.beginning_of_month }.each do |date, posts| %>

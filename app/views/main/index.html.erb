@@ -16,21 +16,19 @@
   <meta itemprop="image", content="" />
   <link rel="canonical" href="https://gotostepone.com" />
 <% end %>
-<%= render "hero" %>
-<%= render "quote", artifact: @artifact unless @artifact.nil? %>
-<section id="pageContent">
-  <div class="pageContent w-6"> 
-    <div class="p-4 m-8 posts">
-      <% if @posts %><%= render "posts" %><% end %> 
+<div id="main">
+  <%= render "hero" %>
+  <%= render "quote", artifact: @artifact unless @artifact.nil? %>
+  <section id="pageContent">
+    <div class="pageContent w-6"> 
+        <% if @posts %><%= render "posts" %><% end %> 
     </div>
+  </section>
+  <section id="about" class="bg-grey p-6 flex-end">
+    <%= cl_image_tag(@about.image.key, width: 200, height: 200, crop: :scale, class: "border-r-thick border-solid border-green-brand", alt: @about.name) %>
+    <div class="quoteContent flex column px-5 ">
+      <h4 class="mb-4"><%= @about.name %></h4>
+      <%= @about.description %>
+    </div>   
+  </section>
 </div>
-   </div>
-  </div>
-</section>
-<section id="about" class="bg-grey p-6 flex-end">
-  <%= cl_image_tag(@about.image.key, width: 200, height: 200, crop: :scale, class: "border-r-thick border-solid border-green-brand", alt: @about.name) %>
-  <div class="quoteContent flex column px-5 ">
-    <h4 class="mb-4"><%= @about.name %></h4>
-    <%= @about.description %>
-  </div>   
-</section>

@@ -245,6 +245,8 @@ ol
   margin-bottom: $space4
 .mb-5
   margin-bottom: $space5
+.mb-6
+  margin-bottom: $space6
 .mb-8
   margin-bottom: $space8
 .ml-3 
@@ -265,6 +267,8 @@ ol
   margin-top: $space4
 .mt-5 
   margin-top: $space5 
+.mt-6
+  margin-top: $space6 
 .mx-3 
   margin-left: $space3 
   margin-right: $space3 
@@ -283,6 +287,9 @@ ol
   display: flex 
   justify-content: flex-end
   align-items: end
+.flex-reverse
+  display: flex 
+  flex-direction: row-reverse
 .flex-around 
   width: 100% 
   display: flex 
@@ -302,6 +309,8 @@ ol
   align-self: center
 .align-middle
   vertical-align: middle
+.inline-block
+  display: inline-block 
 .flex
   display: flex
 .wrap
@@ -310,6 +319,8 @@ ol
   flex-direction: column
 .justify-end
   justify-self: flex-end
+.content-end
+  justify-content: flex-end
 .items-start 
     -webkit-box-align: start
     -ms-flex-align: start
@@ -558,7 +569,9 @@ ol
 
 .border-r-2 
   border-right-width: 2px
-
+  border-top: none
+  border-left: none
+  border-bottom: none
 .border-b-2 
   border-bottom-width: 2px
   border-top: none
@@ -573,7 +586,9 @@ ol
   border-bottom: none
 .border-r-4 
   border-right-width: .3rem
-
+  border-top: none
+  border-left: none
+  border-bottom: none
 .border-b-4 
   border-bottom-width: .3rem
   border-top: none
@@ -645,7 +660,8 @@ ol
   fill: $standard-green
 .gold-brand
   fill: $standard-gold
-
+.svg-light
+  filter: invert(.5) sepia(1)
 .border-grey-lightest
   border-color: $bg-light-gray
 
@@ -822,6 +838,8 @@ header .logo
         color: lighten($standard-gold, 10)
         -webkit-box-shadow: unset
         box-shadow: unset
+#mobile-nav
+  display: none
 #sidebar-nav
   justify-items: end 
   .logo
@@ -881,6 +899,16 @@ header .logo
     flex-direction: column
     align-items: end
 @media only screen and (max-width: 767px) 
+  #sidebar-nav
+    display: none
+  #mobile-nav
+    display: flex
+    .logo
+      width: 4rem
+    a
+      color: $standard-dark-grey
+      &:hover
+        color: $standard-gold
   h1,.h1
     font-size: 55px 
   h2,.h2 

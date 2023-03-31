@@ -12,7 +12,8 @@ class Post < ApplicationRecord
   
   has_rich_text :content
 
-  # after_save :convert_text
+  # before_save :convert_attachment, if: Proc.new { markdown_changed? }
+  # after_save :convert_html, if: Proc.new { html_text_changed? }
   before_validation :should_generate_new_friendly_id?
 
   default_scope  { order(created_at: :desc) }
@@ -50,24 +51,41 @@ class Post < ApplicationRecord
     self.content.to_plain_text.truncate(length)
   end
 
-  def convert_text
+  def convert_html
+    return unless self.html_text.present?
+    body = ActionText::Content.new(self.html_text).to_trix_html
+    ActionText::RichText.create!(record_type: 'Post', record_id: self.id, name: 'content', body:  body )
+  end
+
+  def convert_attachment
+    require 'open-uri'
     return unless self.markdown.attached?
     self.markdown.blob.open do |file|
       File.foreach(file) do |line|
-        if line.include?('title:')
-          self.title = line
-        elsif line.include?('date:')
-          self.created_at = line
-        elsif line.include?('categories:')
-          category = Category.find_by_slug(line.first.downcase)
-          category = category ||= Category.create(name: line.first)
-          self.category = category
+        if line.include?('date:')
+          date = line.gsub("date: ","")
+          self.created_at = date
         elsif line.include?('image:')
-          self.image.blob.create(filename: line)
+          image = line.gsub("image: ","")
+          image = image.squish
+          uri = Cloudinary::Utils.cloudinary_url(image)
+          file = URI.open(uri)
+          self.image.attach(io: file, filename: image)
+          self.save
+        elsif line.include?('categories:')
+          category = line.gsub("categories: ","")
+          category = category.gsub("[","")
+          category = category.gsub("‘","")
+          category = category.gsub("]","")
+          category = category.gsub("’","")
+          category = category.split(",")
+          category = Category.first_or_create(slug: category.first.downcase)
+          self.category = category
         end
-        self.save
       end
+      self.save
     end
   end
+
 
 end

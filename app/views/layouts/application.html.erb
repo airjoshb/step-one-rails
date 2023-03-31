@@ -13,7 +13,27 @@
   </head>
 
   <body>
+    <div id="mobile-nav" class="py-4 px-4 flex-around">
+          <%= link_to root_path, class:"logo" do %>
+            <%= render 'main/logo' %>
+          <% end %>
+          <div class="px-4">
+              <%= active_link_to "Now", now_path %>
+          </div>
+
+          <div class="px-4">
+              <%= active_link_to "Crohn's Cookbook", products_path %>
+          </div>
+          
+          <div class="px-4">
+              <%= active_link_to "Posts", posts_path %>
+          </div>
+          <div class="px-4">
+              <%= active_link_to "About Joshua", about_path %>
+          </div>
+      </div>
     <main class="flex">
+      
       <%= yield %>
       <%= render "layouts/navigation" %>
     </main>
