@@ -11,20 +11,25 @@ Product.create([
 
 ])
 Category.create([
+  {name: "Creating"},
   {name: "Crohn's"},
-  {name: "Training"},
-  {name: "Mindfulness"},
-  {name: "Keto"},
-  {name: "Recipes"},
-  {name: "Reading"},
-  {name: "Watching"},
-  {name: "Listening"},
+  {name: "Cycling"},
   {name: "Entrepreneurship"},
-  {title: "All"},
+  {name: "Farrago"},
+  {name: "Health"},
+  {name: "Keto"},
+  {name: "Listening"},
+  {name: "Mindfulness"},
+  {name: "Reading"},
+  {name: "Recipes"},
+  {name: "Running"},
+  {name: "Strength"},
+  {name: "Training"},
+  {name: "Updates"},
+  {name: "Watching"},
 ])
 Page.create([
   {title: "about joshua", slug: "joshua"},
-  {title: "now"},
   {title: "home", description: "Start where you are and begin again."},
 
 ])
