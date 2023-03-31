@@ -18,6 +18,7 @@ class Post < ApplicationRecord
 
   default_scope  { order(created_at: :desc) }
   scope :no_children, -> {left_joins(:children).where( children: {id: nil} )}
+  scope :only_parents, -> {left_joins(:parent).where( parent: {id: nil} )}
 
   def has_children?
     self.children.present?

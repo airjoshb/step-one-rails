@@ -38,6 +38,14 @@
             <% end %>
           </div>
         </div>
+          <% if @post.has_children? %>
+            <ol type="i" class="flex flex-wrap mb-2" >
+              <li><%= link_to @post.title, "#" %></li>
+            <% for child in @post.children %>
+              <li><%= link_to child.title, "##{child.title.split.join("_")}", class: "border-r-2 solid border-green" %></li>
+            <% end %>
+            </ol>
+          <% end %>
         <div class="post border-t-thick border-solid border-green-brand">
           <div class="flex-end">
         <svg class="h-5 green-brand mb-4" height="20" width="20" preserveAspectRatio="xMaxYMax meet">
@@ -46,6 +54,12 @@
         </div>
         <%= @post.content %>
         </div>
+        <% for child in @post.children %>
+          <div class="">
+            <h2 id="<%= child.title.split.join("_") %>", class="py-4"><%= child.title %></h2>
+            <%= child.content %>
+          </div>
+        <% end %>
       </div>
     </div>
 </div>

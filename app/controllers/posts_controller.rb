@@ -11,9 +11,9 @@ class PostsController < ApplicationController
       @first_post = all_posts.first
       @more = all_posts.flatten - @posts.flatten - [@first_post]
     else
-      @posts = Post.all[1..7]
-      @more = Post.all.offset(8)
-      @first_post = Post.all.first
+      @posts = Post.only_parents[1..7]
+      @more = Post.only_parents.offset(8)
+      @first_post = Post.only_parents.first
     end
     
   end
