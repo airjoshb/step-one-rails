@@ -19,6 +19,8 @@ class Post < ApplicationRecord
   default_scope  { order(created_at: :desc) }
   scope :no_children, -> {left_joins(:children).where( children: {id: nil} )}
   scope :only_parents, -> {left_joins(:parent).where( parent: {id: nil} )}
+  scope :updates, -> {left_joins(:category).where( category: {name: 'Updates'} )}
+  scope :not_updates, -> {left_joins(:category).where.not( category: {name: 'Updates'} )}
 
   def has_children?
     self.children.present?
@@ -68,6 +70,7 @@ class Post < ApplicationRecord
           self.created_at = date
         elsif line.include?('image:')
           image = line.gsub("image: ","")
+          image = image.gsub(/\\$/, "")
           image = image.squish
           uri = Cloudinary::Utils.cloudinary_url(image)
           file = URI.open(uri)

@@ -6,10 +6,10 @@ class PostsController < ApplicationController
       @category = Category.find_by_slug(params[:category])
       children = Post.where(category_id: @category.children.pluck(:id))
       parent = @category.posts
-      all_posts = children + parent
-      @posts = all_posts[1..7]
-      @first_post = all_posts.first
-      @more = all_posts.flatten - @posts.flatten - [@first_post]
+      @all_posts = children + parent
+      @posts = @all_posts[1..7]
+      @first_post = @all_posts.first
+      @more = @all_posts.flatten - @posts.flatten - [@first_post]
     else
       @posts = Post.only_parents[1..7]
       @more = Post.only_parents.offset(8)

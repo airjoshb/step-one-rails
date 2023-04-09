@@ -23,7 +23,7 @@
   <div class="container">
     <div class="postContainer">
       <div class="content posts">
-        <% if @posts.empty? %>
+        <% if @all_posts.empty? %>
           <p>There are no posts for this category</p>
         <% else %>
           <div class="post mb-6  mt-6">
@@ -52,8 +52,8 @@
         <% end %>
       </div>
       <section class="posts mb-6">
-        <h4>Some More</h4>
         <% unless @more.blank? %>
+          <h4>Some More</h4>
           <% @more.group_by {|t| t.created_at.beginning_of_month }.each do |date, posts| %>
             <div class="date"><%= date.strftime("%B, %Y") %></div>
             <% for post in posts %>

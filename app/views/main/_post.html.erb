@@ -1,0 +1,42 @@
+  <div class=" border-t-thick border-solid border-green-brand date flex-end"><%= @updates.first.created_at.strftime("%B %d, %Y") %></div>
+  <div class="p-4 m-8 posts">
+      <div class="flex-start column mb-4">
+        <div class="contentContainer w-full flex">
+          <% unless @updates.first.image.blank? %>
+            <div class="imageContainer pr-4">
+              <%= cl_image_tag(@updates.first.image.key, width: 200, height: 200, crop: :fill, gravity: 'center', class: " border-r border-green-brand border-solid", alt: @updates.first.title) %>
+            </div>
+          <% end %>
+          <div class="flex column content">
+            <%= link_to @updates.first do %>
+              <h3 class="shadowTitle mb-2 w-full"><%= @updates.first.title %></h5>
+            <% end %>
+            <div class="@updates.first">
+              <%= @updates.first.shortened_content(400) %>
+              <div class=""><svg class="green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+<div class=" border-t-thick border-solid border-green-brand date flex-end"><%= @posts.first.created_at.strftime("%B %d, %Y") %></div>
+<div class="p-4 m-8 posts">
+      <div class="flex-start column mb-4">
+        <div class="contentContainer w-full flex">
+          <% unless @posts.first.image.blank? %>
+            <div class="imageContainer pr-4">
+              <%= cl_image_tag(@posts.first.image.key, width: 200, height: 200, crop: :fill, gravity: 'center', class: " border-r border-green-brand border-solid", alt: @posts.first.title) %>
+            </div>
+          <% end %>
+          <div class="flex column content">
+            <%= link_to @posts.first do %>
+              <h3 class="shadowTitle mb-2 w-full"><%= @posts.first.title %></h5>
+            <% end %>
+            <div class="@updates.first">
+              <%= @posts.first.shortened_content(400) %>
+              <div class=""><svg class="green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>

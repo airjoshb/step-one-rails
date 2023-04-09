@@ -20,7 +20,7 @@ class PostResource < Avo::BaseResource
   field :markdown, as: :file, hide_on: [:index]
   field :category, as: :belongs_to
   field :html_text, as: :text, hide_on: [:index]
-  field :content, as: :trix, attachment_key: :trix_attachments, through: :action_text_rich_texts
+  field :content, as: :trix, attachment_key: :trix_attachments, through: :action_text_rich_texts, hide_on: [:new]
   field :children, as: :has_many
   field :parent, as: :belongs_to
   # add fields here

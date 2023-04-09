@@ -17,6 +17,7 @@ class PageResource < Avo::BaseResource
   field :title, as: :text
   field :description, as: :textarea
   field :nav, as: :boolean
+  field :slug, as: :text, hide_on: [:new]
   field :content, as: :trix, attachment_key: :trix_attachments, through: :action_text_rich_texts
   # add fields here
 
