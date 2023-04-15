@@ -13,6 +13,7 @@ class ArtifactResource < Avo::BaseResource
   field :name, as: :text
   field :url, as: :text
   field :image, as: :file
+  field :posts, as: :has_and_belongs_to_many
   field :category, as: :belongs_to
   field :description, as: :trix, attachment_key: :trix_attachments, through: :action_text_rich_texts
   # add fields here

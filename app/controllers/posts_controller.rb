@@ -11,7 +11,7 @@ class PostsController < ApplicationController
       @first_post = @all_posts.first
       @more = @all_posts.flatten - @posts.flatten - [@first_post]
     else
-      @posts = Post.only_parents[1..7]
+      @all_posts = Post.only_parents[1..7]
       @more = Post.only_parents.offset(8)
       @first_post = Post.only_parents.first
     end
@@ -30,7 +30,7 @@ class PostsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title, :image, :markdown)
+    params.require(:post).permit(:title, :image, :markdown, :turbo_frame)
   end
 
 end

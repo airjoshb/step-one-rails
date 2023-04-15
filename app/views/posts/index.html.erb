@@ -6,13 +6,13 @@
   <meta property="og:description", content="" />
   <meta property="og:type", content="articles" />
   <meta property="og:url", content="<%= posts_url %>" />
-  <meta property="og:image", content="<%=@first_post.image.url if @first_post.image.attached? unless @posts.empty? %>" />
+  <meta property="og:image", content="<%=@first_post.image.url if @first_post.image.attached? unless @all_posts.empty? %>" />
   <meta name="twitter:title", content="the latest updates from Step One" />
   <meta name="twitter:description", content="" />
-  <meta name="twitter:image", content="<%=@first_post.image.url if @first_post.image.attached? unless @posts.empty? %>" />
+  <meta name="twitter:image", content="<%=@first_post.image.url if @first_post.image.attached? unless @all_posts.empty? %>" />
   <meta name="twitter:card", content="summary" />
   <meta name="twitter:url", content="<%= posts_url %>" />
-  <meta itemprop="image", content="<%=@first_post.image.url if @first_post.image.attached? unless @posts.empty?%>" />
+  <meta itemprop="image", content="<%=@first_post.image.url if @first_post.image.attached? unless @all_posts.empty?%>" />
   <link rel="canonical" href="<%= posts_url %>" />
 <% end %>
 <% content_for content_for :html do %>
@@ -23,7 +23,7 @@
   <div class="container">
     <div class="postContainer">
       <div class="content posts">
-        <% if @all_posts.empty? %>
+        <% unless @all_posts.any? %>
           <p>There are no posts for this category</p>
         <% else %>
           <div class="post mb-6  mt-6">
@@ -36,7 +36,7 @@
         <% end %>
       </div>
       <div id="postRow" class="">
-        <% for post in @posts %>
+        <% for post in @all_posts %>
           <div class="post mb-6 p-4">
             <div class="flex content-end mb-4">
               <%= link_to post_path(post), class:"flex" do %>

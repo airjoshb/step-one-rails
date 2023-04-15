@@ -52,6 +52,19 @@
             <circle cx="10" cy="10" r="8" stroke="transparent" fill="brand" ></circle>
           </svg>
         </div>
+        <% if @post.artifacts.any? %>
+          <div class="flex wrap border border-solid border-gold-brand mb-6 px-4">
+            <div class="w-full"><p class="gold-text heading-font py-2">In this post<p></div>
+            <% for artifact in @post.artifacts %>
+                <%= link_to artifact.url, target: "_blank" do %>
+                  <div class="flex-center py-4">
+                    <%= cl_image_tag(artifact.image.key, width: 75, height: 75, crop: :fill, gravity: 'center', alt: artifact.name, class: "pr-4") if artifact.image.attached? %>
+                    <%= artifact.name %>
+                  </div>
+                <% end %>
+            <% end %>
+          </div>
+        <% end %>
         <%= @post.content %>
         </div>
         <% for child in @post.children %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_31_001349) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_15_193641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,6 +80,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_31_001349) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_artifacts_on_category_id"
+  end
+
+  create_table "artifacts_posts", id: false, force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "artifact_id", null: false
+    t.index ["artifact_id"], name: "index_artifacts_posts_on_artifact_id"
+    t.index ["post_id"], name: "index_artifacts_posts_on_post_id"
   end
 
   create_table "carts", force: :cascade do |t|

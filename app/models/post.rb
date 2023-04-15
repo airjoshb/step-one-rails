@@ -2,7 +2,8 @@ class Post < ApplicationRecord
   belongs_to :category, optional: true
   has_many :children, class_name: "Post", foreign_key: 'parent_id'
   belongs_to :parent, class_name: "Post", foreign_key: 'parent_id', optional: true
-  
+  has_and_belongs_to_many :artifacts
+
   extend FriendlyId
   friendly_id :title, use: [:slugged, :history]
 
@@ -31,23 +32,25 @@ class Post < ApplicationRecord
   end
 
   def thumbnail
-    self.image.key(width: 150, height: 150, crop: :fill, gravity: 'center')
+    Cloudinary::Utils.cloudinary_url(
+      self.image,
+      width: 150, height: 150, crop: :fill, gravity: 'center')
   end
 
   def medium_image
     Cloudinary::Utils.cloudinary_url(
       self.image,
-      transformation: [{width: 300, height: 300, crop: :fill, gravity: 'center'}])
+      width: 300, height: 300, crop: :fill, gravity: 'center')
   end
 
   def large_image
     Cloudinary::Utils.cloudinary_url(
       self.image,
-      transformation: [{width: 600, height: 600, crop: :scale}])
+      width: 600, height: 600, crop: :scale)
   end
 
   def should_generate_new_friendly_id?
-    name_changed?
+    title_changed?
   end
 
   def shortened_content(length)
