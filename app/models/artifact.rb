@@ -46,8 +46,8 @@ class Artifact < ApplicationRecord
           self.url = link
         elsif line.include?('---')          
         else
-          body = ActionText::Content.new(self.html_text).to_trix_html
-          ActionText::RichText.create!(record_type: 'Post', record_id: self.id, name: 'content', body: line )
+          body = ActionText::Content.new(self.markdown).to_trix_html
+          ActionText::RichText.create!(record_type: 'Post', record_id: self.id, name: 'content', body: body )
         end
       end
       self.save
