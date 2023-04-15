@@ -18,6 +18,6 @@ class ArtifactResource < Avo::BaseResource
   field :markdown, as: :file
   field :posts, as: :has_and_belongs_to_many
   field :category, as: :belongs_to
-  field :description, as: :trix, attachment_key: :trix_attachments, through: :action_text_rich_texts
+  field :description, as: :trix, attachment_key: :trix_attachments, through: :action_text_rich_texts, hide_on: [:new]
   # add fields here
 end
