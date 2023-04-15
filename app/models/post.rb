@@ -85,6 +85,7 @@ class Post < ApplicationRecord
           category = category.gsub("‘","")
           category = category.gsub("]","")
           category = category.gsub("’","")
+          category = category.gsub("'","")
           category = category.split(",")
           category = Category.find_or_create_by(slug: category.first.downcase)
           self.category = category
