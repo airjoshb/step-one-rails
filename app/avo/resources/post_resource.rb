@@ -6,6 +6,8 @@ class PostResource < Avo::BaseResource
     model_class.order(created_at: :asc)
   end
 
+  action Convert
+
   self.resolve_find_scope = ->(model_class:) do
     model_class.friendly
   end

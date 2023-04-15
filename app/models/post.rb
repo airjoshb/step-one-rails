@@ -47,7 +47,7 @@ class Post < ApplicationRecord
   end
 
   def should_generate_new_friendly_id?
-    title_changed?
+    name_changed?
   end
 
   def shortened_content(length)
