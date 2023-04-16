@@ -68,6 +68,7 @@
         <%= @post.content %>
         </div>
         <% for child in @post.children %>
+          <hr />
           <div class="">
             <h2 id="<%= child.title.split.join("_") %>", class="py-4"><%= child.title %></h2>
             <%= child.content %>
