@@ -14,7 +14,7 @@ class PostsController < ApplicationController
       @all_posts = Post.not_updates
       @posts = @all_posts.only_parents[1..7]
       @more = Post.only_parents.offset(8)
-      @first_post = Post.only_parents.first
+      @first_post = @all_posts.only_parents.first
     end
     
   end

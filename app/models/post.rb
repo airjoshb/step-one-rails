@@ -58,7 +58,7 @@ class Post < ApplicationRecord
   end
 
   def convert_html
-    return unless self.html_text.present?
+    return unless self.html_text.present? && self.content.nil?
     body = ActionText::Content.new(self.html_text).to_trix_html
     ActionText::RichText.create!(record_type: 'Post', record_id: self.id, name: 'content', body:  body )
   end
