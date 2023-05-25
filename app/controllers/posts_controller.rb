@@ -7,13 +7,13 @@ class PostsController < ApplicationController
       children = Post.where(category_id: @category.children.pluck(:id))
       parent = @category.posts
       @all_posts = children + parent
-      @posts = @all_posts[1..7]
+      @posts = @all_posts[1..8]
       @first_post = @all_posts.first
       @more = @all_posts.flatten - @posts.flatten - [@first_post]
     else
       @all_posts = Post.not_updates
-      @posts = @all_posts.only_parents[1..7]
-      @more = Post.only_parents.offset(8)
+      @posts = @all_posts.only_parents[1..8]
+      @more = Post.only_parents.offset(10)
       @first_post = @all_posts.only_parents.first
     end
     

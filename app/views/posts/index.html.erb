@@ -22,22 +22,24 @@
 <section id="post" class="w-full">
   <div class="container">
     <div class="postContainer">
-      <div class="content posts">
+      <div class="posts">
         <% unless @all_posts.any? %>
           <p>There are no posts for this category</p>
         <% else %>
-          <div class="post mb-6  mt-6">
+          <div class="post mb-6  mt-6 flex">
             <%= link_to cl_image_tag(@first_post.image.key, width: 385, crop: :fill, gravity: 'center', alt: @first_post.title, class: "border-r-8 border-green-brand border-solid mr-4"), post_path(@first_post) if @first_post.image.attached? %>
-            <%= link_to post_path(@first_post) do %>
-              <h1><%= @first_post.title %></h1>
-            <% end %>
-            <div class="line-clamp"><%= @first_post.shortened_content(400) %></div>
+            <div class="flex-column align-end">
+              <%= link_to post_path(@first_post) do %>
+                <h1><%= @first_post.title %></h1>
+              <% end %>
+              <div class="line-clamp"><%= @first_post.shortened_content(400) %></div>
+            </div>
           </div>
         <% end %>
       </div>
-      <div id="postRow" class="">
+      <div id="postRow" class="posts">
         <% for post in @posts %>
-          <div class="post mb-6 p-4">
+          <div class="post mb-6 p-2">
             <div class="flex content-end mb-4">
               <%= link_to post_path(post), class:"flex" do %>
                 <h3 class="vert-rl"><%= post.title %></h3>
@@ -51,11 +53,12 @@
           </div>
         <% end %>
       </div>
-      <section class="posts mb-6">
+      <section class="mb-6 flex column text-center align-center">
         <% unless @more.blank? %>
-          <h4>Some More</h4>
+          <h4 class="mb-4">Some More</h4>
           <% @more.group_by {|t| t.created_at.beginning_of_month }.each do |date, posts| %>
-            <div class="date"><%= date.strftime("%B, %Y") %></div>
+            <div class="border-b-2 border-solid border-green-brand w-6 mb-2 pb-4">
+            <div class="date pb-4"><%= date.strftime("%B, %Y") %></div>
             <% for post in posts %>
               <div class="post">
                 <%= link_to post_path(post) do %>
@@ -65,6 +68,7 @@
                 <% end %>
               </div>
             <% end %>
+            </div>
           <% end %>
         <% end %>
       </section>

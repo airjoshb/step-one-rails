@@ -313,7 +313,8 @@ ol
   align-self: flex-end
 .align-center
   align-self: center
-.align-middle
+  align-items: center 
+  align-content: center 
   vertical-align: middle
 .inline-block
   display: inline-block 
@@ -572,7 +573,11 @@ ol
   border-right: none
   border-left: none
   border-bottom: none
-
+.border-b-2
+  border-bottom-width: 2px
+  border-top: none
+  border-left: none
+  border-right: none
 .border-r-2 
   border-right-width: 2px
   border-top: none
@@ -604,6 +609,7 @@ ol
 
 .border-t-8 
   border-top-width: 8px
+
 
 .border-r-8 
   border-right-width: 8px
@@ -780,7 +786,8 @@ ol
   width: 16rem
 .l-0 
   left: 0
-
+.r-0
+  right: 0
 .t-0
   top: 0
 .t-225
@@ -917,6 +924,8 @@ header .logo
       color: $standard-dark-grey
       &:hover
         color: $standard-gold
+  h1, h2, h3, h4,h5, h6
+    line-hight: 7vh
   h1,.h1
     font-size: 55px 
   h2,.h2 
@@ -945,6 +954,7 @@ header .logo
 @media only screen and (max-width: 480px) 
   h1,.h1 
   font-size: 30px 
+
   h2,
   .h2 
   font-size: 28px

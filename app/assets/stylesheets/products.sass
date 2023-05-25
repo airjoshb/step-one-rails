@@ -67,7 +67,6 @@
         padding: 0 0 20px 20px
 
 #shop, #page, #post
-  width: 80%
   .bakery-categories
     display: flex
     justify-content: space-around
@@ -94,53 +93,56 @@
     margin-top: 32px 
     margin-left: 8px 
     margin-right: 8px 
-  .postContainer .content
-    width: 67.2%
-    margin: 0 auto
-    color: #333;
-    .post
-      width: 100%
-      height: auto
-      overflow: hidden
-      .trix-content
-        width: 97%
-        div:first-of-type:first-letter 
-            float: left
-            font-size: 107px
-            padding-top: 0
-            padding-right: 7px
-            line-height: 77px
-            -webkit-font-smoothing: subpixel-antialiased;
-            font-style: normal
-            font-weight: 700
-      a
-        color: $standard-dark-grey
-    ol
-      color: $standard-gold
-      li
-        margin: 0 20px
-        &:hover, a:hover
+  .postContainer 
+    .posts
+      margin-right: 22%
+    .content
+      width: 67.2%
+      margin: 0 auto
+      color: #333;
+      .post
+        width: 100%
+        height: auto
+        overflow: hidden
+        .trix-content
+          width: 97%
+          div:first-of-type:first-letter 
+              float: left
+              font-size: 107px
+              padding-top: 0
+              padding-right: 7px
+              line-height: 77px
+              -webkit-font-smoothing: subpixel-antialiased;
+              font-style: normal
+              font-weight: 700
+        a
           color: $standard-dark-grey
-    .postTitle
-      text-align: center
-      padding: 2em 0
-    .postDate
-      font-size: 1em
-      color: $standard-dark-grey
-      padding-bottom: 2em
-    .date
-      font-family: $brand-font
-      color: $standard-gold
-      margin-bottom: 1.5em
-    hr
-      color: $standard-gold
-      border: none;
-      border-top: 1px solid $standard-gold
-      overflow: visible;
-      text-align: center;
-      height: 5px;
-    a:hover
-      color: $standard-gold
+      ol
+        color: $standard-gold
+        li
+          margin: 0 20px
+          &:hover, a:hover
+            color: $standard-dark-grey
+      .postTitle
+        text-align: center
+        padding: 2em 0
+      .postDate
+        font-size: 1em
+        color: $standard-dark-grey
+        padding-bottom: 2em
+      .date
+        font-family: $brand-font
+        color: $standard-gold
+        margin-bottom: 1.5em
+      hr
+        color: $standard-gold
+        border: none;
+        border-top: 1px solid $standard-gold
+        overflow: visible;
+        text-align: center;
+        height: 5px;
+      a:hover
+        color: $standard-gold
   .cardGrid 
     width: 100%
     margin: 0 auto
@@ -300,8 +302,8 @@
   font-family: $standard-header
 #postRow 
   display: grid
-  grid-template-columns: repeat(auto-fill,48%)
-  justify-content: space-between
+  grid-template-columns: repeat(auto-fill,42%)
+  justify-content: space-around
   .post
     // -webkit-box-flex: 0
     // -ms-flex: 0 0 31.33%
