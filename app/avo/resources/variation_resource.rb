@@ -9,6 +9,7 @@ class VariationResource < Avo::BaseResource
   # Fields generated from the model
   field :name, as: :text
   field :amount, as: :number
+  field :stripe_id, as: :text
   field :active, as: :boolean
   field :add_on, as: :boolean
   field :count_on_hand, as: :number

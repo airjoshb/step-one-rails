@@ -20,6 +20,7 @@ class ProductResource < Avo::BaseResource
   field :description, as: :textarea
   field :content, as: :trix, attachment_key: :trix_attachments, through: :action_text_rich_texts
   field :image, as: :file
+  field :stripe_id, as: :text
   field :row_order, as: :number
   field :active, as: :boolean
   field :variations, as: :has_many
