@@ -5,8 +5,13 @@ class VariationResource < Avo::BaseResource
   #   scope.ransack(id_eq: params[:q], m: "or").result(distinct: false)
   # end
 
+  self.resolve_find_scope = ->(model_class:) do
+    model_class.friendly
+  end
+
   field :id, as: :id
   # Fields generated from the model
+  field :product, as: :belongs_to
   field :name, as: :text
   field :amount, as: :number
   field :stripe_id, as: :text
