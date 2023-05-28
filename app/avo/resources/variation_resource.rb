@@ -25,7 +25,7 @@ class VariationResource < Avo::BaseResource
   field :carts, as: :has_many, through: :orderables
   # add fields here
 
-  self.resolve_find_scope = ->(model_class:) do
-    model_class.friendly
+  self.find_record_method = ->(model_class:, id:, params:) do
+    model_class.friendly.find id
   end
 end

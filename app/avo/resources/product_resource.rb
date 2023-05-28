@@ -6,8 +6,11 @@ class ProductResource < Avo::BaseResource
     model_class.order(name: :asc)
   end
 
-  self.resolve_find_scope = ->(model_class:) do
-    model_class.friendly
+  # self.resolve_find_scope = ->(model_class:) do
+  #   model_class.friendly
+  # end
+  self.find_record_method = ->(model_class:, id:, params:) do
+    model_class.friendly.find id
   end
 
   # self.search_query = -> do
