@@ -5,7 +5,6 @@
 #product
   .product-container
     display: flex
-    justify-content: space-around
     margin: 30px 0 0 3%
     width: 70%
     max-width: 1440px
@@ -362,11 +361,11 @@
     grid-template-columns: repeat(1, 1fr)
   .variations
     border-left: 3px double #53524E
-  #post .postContainer .posts
-    flex-direction: column
+  #post .postContainer
     .posts
       margin-right: 0
-
+      .post
+        flex-direction: column  
   #shop
     .product-collection
       min-height: 330px 
