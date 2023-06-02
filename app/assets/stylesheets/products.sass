@@ -361,11 +361,13 @@
     grid-template-columns: repeat(1, 1fr)
   .variations
     border-left: 3px double #53524E
-  #post .postContainer
-    .posts
-      margin-right: 0
-      .post
-        flex-direction: column  
+  #post 
+    grid-template-columns: repeat(auto-fill,100%) 
+    .postContainer
+      .posts
+        margin-right: 0
+        .post
+          flex-direction: column  
   #shop
     .product-collection
       min-height: 330px 
