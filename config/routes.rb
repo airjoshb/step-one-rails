@@ -24,12 +24,11 @@ Rails.application.routes.draw do
   end
 
   root 'main#index'
-  resources :products 
+  resources :products
   resources :posts
   get '/updates', to: 'posts#index', category: 'updates', as: :update
   get '/joshua', to: 'pages#show', slug: 'joshua', as: :about
   get '/shop', to: 'products#index', as: 'shop'
-  get '/cookbook', to: 'products#show', to: 'products/the-crohn-s-disease-aip-cookbook', as: :cookbook
   post '/create-checkout-session', to: 'create_checkout_sessions#create', as: 'checkout-session'
   post '/webhook', to: 'create_checkout_sessions#webhook', as: 'webhook'
 
