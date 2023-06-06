@@ -70,6 +70,8 @@
         padding: 0 0 20px 20px
 
 #shop, #page, #post
+  width: 100%
+  min-height: 75vh
   .bakery-categories
     display: flex
     justify-content: space-around
@@ -92,12 +94,14 @@
       line-height: 17px 
       margin-top: 32px 
 
-  .productContainer, .pageContainer
+  .productContainer
     margin-top: 32px 
     margin-left: 8px 
     margin-right: 8px 
-  .postContainer 
+  .postContainer, .pageContainer 
+    width: 100%
     .posts
+      min-height: 100vh
       margin-right: 22%
     .content
       width: 67.2%
@@ -109,6 +113,7 @@
         overflow: hidden
         .trix-content
           width: 97%
+          margin-top: 2rem
           div:first-of-type:first-letter 
               float: left
               font-size: 107px
@@ -366,6 +371,7 @@
       #postRow  
         grid-template-columns: repeat(auto-fill,100%) 
       .posts
+        min-height: 100vh
         margin-right: 0
         .post
           flex-direction: column  

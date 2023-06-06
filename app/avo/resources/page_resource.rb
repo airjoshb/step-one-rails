@@ -15,6 +15,7 @@ class PageResource < Avo::BaseResource
   field :id, as: :id
   # Fields generated from the model
   field :title, as: :text
+  field :image, as: :file
   field :description, as: :textarea
   field :nav, as: :boolean
   field :slug, as: :text, hide_on: [:new]

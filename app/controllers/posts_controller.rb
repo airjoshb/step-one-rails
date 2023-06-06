@@ -9,7 +9,7 @@ class PostsController < ApplicationController
       @all_posts = children + parent
       @posts = @all_posts[1..8]
       @first_post = @all_posts.first
-      @more = @all_posts.flatten - @posts.flatten - [@first_post]
+      @more = @all_posts.flatten - @posts.flatten - [@first_post] unless @all_posts.empty?
     else
       @all_posts = Post.not_updates
       @posts = @all_posts.only_parents[1..8]

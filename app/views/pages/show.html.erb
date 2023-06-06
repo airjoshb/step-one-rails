@@ -1,8 +1,42 @@
-<%= render "/main/banner", title: @page.title, subtitle: @page.description %>
+<% content_for :head do %>
+  <title><%=@page.title %> | Step One</title>
+  <meta name="description" content="<%= @page.content.to_plain_text.truncate(300) %>" />
+  <meta property="og:title", content="<%=@page.title %> | Step One" />
+  <meta property="og:site_name", content="Step One" />
+  <meta property="og:description", content="<%= @page.content.to_plain_text.truncate(300) %>" />
+  <meta property="og:type", content="article" />
+  <meta property="og:url", content="<%= @page_url %>" />
+  <meta property="og:image", content="<%=@page.image.url if @page.image.attached? %>" />
+  <meta name="twitter:title", content="<%=@page.title %> | Step One" />
+  <meta name="twitter:description", content="<%= @page.content.to_plain_text.truncate(300) %>" />
+  <meta name="twitter:image", content="<%=@page.image.url if @page.image.attached? %>" />
+  <meta name="twitter:card", content="summary" />
+  <meta name="twitter:url", content="<%=@page_url %>" />
+  <meta itemprop="headline", content="<%=@page.title %>" />
+  <meta itemprop="description", content="<%= @page.content.to_plain_text.truncate(300) %>" />
+  <meta itemprop="image", content="<%=@page.image.url if @page.image.attached? %>" />
+  <meta itemprop="datePublished", content="<%=@page.created_at.to_time.iso8601 %>" />
+  <link rel="canonical" href="<%= @page_url %>" />
+<% end %>
+<% content_for content_for :html do %>
+  "http://schema.org/Article"
+<% end %>
+
 <section id="page">
-  <div class="container">
-    <div class="pageContainer">
-      <div class="detailContent">
+  <div class="pageContainer">
+    <div class="bannerContainer">
+      <%= cl_image_tag(@page.image.key, width: 400, alt: title)  if @page.image.attached? %>
+      <span class="subtitleStyle"><%= @page.description %></span>
+    </div>  
+    <div class="content">
+      <div class="center mb-4">
+        <%= image_tag 'step-one-icon.svg', width: 50, alt: "Step One Hand Icon", class: "pt-4" %>
+        <h1><%= @page.title %></h1>
+      </div>
+      <div class="post border-t-thick border-solid border-green-brand">
+          <svg class="h-5 green-brand mb-4 right" height="20" width="20" preserveAspectRatio="xMaxYMax meet">
+            <circle cx="10" cy="10" r="8" stroke="transparent" fill="brand" ></circle>
+          </svg>
         <%= @page.content %>
       </div>
     </div>

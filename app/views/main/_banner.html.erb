@@ -1,11 +1,8 @@
-<div class="bannerContainer bg-grey">
-   <% unless action_name == 'index' || image.present? %>
-    <%= image_tag image, alt: subtitle %>
-  <% else %>
-    <%= image_tag 'switch-bakery-gluten-free-bread.png', alt: "Gluten Free Bread Delivery Fox on a Bike" %>
-  <% end %>
+<div class="bannerContainer">
+  <%= cl_image_tag(image.key, width: 400, alt: title)  if image.attached? %>
   <% if title.present? %>
     <h1><%= title %></h1>
     <span class="subtitleStyle"><%= subtitle %></span>
+    <%= image_tag 'step-one-icon.svg', width: 50, alt: "Step One Hand Icon", class: "pt-4" %>
   <% end %>
 </div>
