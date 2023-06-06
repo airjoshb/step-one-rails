@@ -26,7 +26,7 @@
   <div class="pageContainer">
     <div class="bannerContainer">
       <%= cl_image_tag(@page.image.key, width: 400, alt: title)  if @page.image.attached? %>
-      <span class="subtitleStyle w-6 center"><%= @page.description %></span>
+      <span class="subtitleStyle w-3"><%= @page.description %></span>
     </div>  
     <div class="content">
       <div class="center mb-4">
