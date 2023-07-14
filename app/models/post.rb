@@ -22,6 +22,7 @@ class Post < ApplicationRecord
   scope :only_parents, -> {left_joins(:parent).where( parent: {id: nil} )}
   scope :updates, -> {left_joins(:category).where( category: {name: 'Updates'} )}
   scope :not_updates, -> {left_joins(:category).where.not( category: {name: 'Updates'} )}
+  scope :this_month, -> { where(created_at: Date.today.all_month) }
 
   def has_children?
     self.children.present?

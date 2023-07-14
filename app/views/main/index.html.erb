@@ -21,7 +21,7 @@
   <%= render "quote", artifact: @artifact unless @artifact.nil? %>
   <section id="pageContent">
     <div class="pageContent w-6"> 
-        <% if @updates %><%= render "post" %><% end %> 
+        <% if @posts %><%= render "posts" %><% end %> 
     </div>
   </section>
   <section id="about" class="bg-grey p-6 flex-end">

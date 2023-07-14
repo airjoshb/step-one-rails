@@ -59,7 +59,7 @@
         <section class="mb-6 flex column text-center align-center">
           <% unless @more.blank? %>
             <h4 class="mb-4">Some More</h4>
-            <% @more.group_by {|t| t.created_at.beginning_of_month }.each do |date, posts| %>
+            <% @more.group_by {|t| t.pub_date.beginning_of_month }.each do |date, posts| %>
               <div class="border-b-2 border-solid border-green-brand w-6 mb-2 pb-4">
               <div class="date pb-4"><%= date.strftime("%B, %Y") %></div>
               <% for post in posts %>

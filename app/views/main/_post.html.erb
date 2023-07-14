@@ -1,4 +1,4 @@
-  <div class=" border-t-thick border-solid border-green-brand date flex-end"><%= @updates.first.created_at.strftime("%B %d, %Y") %></div>
+  <div class=" border-t-thick border-solid border-green-brand date flex-end"><%= @updates.first.pub_date.strftime("%B %d, %Y") %></div>
   <div class="p-4 m-8 posts">
       <div class="flex-start column mb-4">
         <div class="contentContainer w-full flex">
@@ -19,7 +19,7 @@
         </div>
       </div>
   </div>
-<div class=" border-t-thick border-solid border-green-brand date flex-end"><%= @posts.first.created_at.strftime("%B %d, %Y") %></div>
+<div class=" border-t-thick border-solid border-green-brand date flex-end"><%= @posts.first.pub_date.strftime("%B %d, %Y") %></div>
 <div class="p-4 m-8 posts">
       <div class="flex-start column mb-4">
         <div class="contentContainer w-full flex">

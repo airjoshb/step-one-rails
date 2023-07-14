@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_15_193641) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_14_003657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -195,6 +195,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_15_193641) do
     t.integer "parent_id"
     t.string "markdown"
     t.string "html_text"
+    t.datetime "pub_date"
     t.index ["category_id"], name: "index_posts_on_category_id"
   end
 

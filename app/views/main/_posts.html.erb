@@ -1,24 +1,27 @@
-<% @posts.group_by {|t| t.created_at.beginning_of_month }.each do |date, posts| %>
+<% @posts.group_by {|t| t.pub_date.beginning_of_month }.each do |date, posts| %>
+  <div class=""><svg class="green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg></div>
   <div class=" border-t-thick border-solid border-green-brand date flex-end"><%= date.strftime("%B, %Y") %></div>
   <div class="p-4 m-8 posts">
     <% posts.reverse.each do |post| %>
-      <div class="flex-start column mb-4">
-        <div class="contentContainer w-full flex">
-          <% unless post.image.blank? %>
-            <div class="imageContainer pr-4">
-              <%= cl_image_tag(post.image.key, width: 200, height: 200, crop: :fill, gravity: 'center', class: " border-r border-green-brand border-solid", alt: post.title) %>
-            </div>
-          <% end %>
-          <div class="flex column content">
-            <%= link_to post do %>
-              <h3 class="shadowTitle mb-2 w-full"><%= post.title %></h5>
-            <% end %>
-            <div class="post">
-              <%= post.shortened_content(400) %>
-              <div class=""><svg class="green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg></div>
+      <div class="p-4 m-8 posts">
+          <div class="flex-start column mb-4">
+            <div class="contentContainer w-full flex">
+              <% unless post.image.blank? %>
+                <div class="imageContainer pr-4">
+                  <%= cl_image_tag(post.image.key, width: 200, height: 200, crop: :fill, gravity: 'center', class: " border-r border-green-brand border-solid", alt: post.title) %>
+                </div>
+              <% end %>
+              <div class="flex column content">
+                <%= link_to post do %>
+                  <h3 class="shadowTitle mb-2 w-full"><%= post.title %></h5>
+                <% end %>
+                <div class="post">
+                  <%= post.shortened_content(400) %>
+                  <div class=""><svg class="green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg></div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
       </div>
     <% end %>
   </div>
