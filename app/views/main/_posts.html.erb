@@ -2,7 +2,7 @@
   <div class=""><svg class="green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg></div>
   <div class=" border-t-thick border-solid border-green-brand date flex-end"><%= date.strftime("%B, %Y") %></div>
   <div class="p-4 m-8 posts">
-    <% posts.reverse.each do |post| %>
+    <% posts.each do |post| %>
       <div class="p-4 m-8 posts">
           <div class="flex-start column mb-4">
             <div class="contentContainer w-full flex">
