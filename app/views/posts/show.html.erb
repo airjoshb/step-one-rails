@@ -26,7 +26,7 @@
     <div class="postContainer">
       <% if @post.image.attached? %>
         <div class="bannerContainer">
-          <%= cl_image_tag(@post.image.key, width: 660, alt: @post.title)  %>
+          <%= cl_image_tag(@post.image.key, width: 75%, alt: @post.title)  %>
         </div>
       <% end %>
       <div class="content">
