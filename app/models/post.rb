@@ -55,7 +55,7 @@ class Post < ApplicationRecord
   end
 
   def shortened_content(length)
-    self.content.to_plain_text.truncate(length)
+    self.content.to_trix_html.truncate(length).html_safe
   end
 
   def convert_html
