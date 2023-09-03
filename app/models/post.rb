@@ -54,8 +54,8 @@ class Post < ApplicationRecord
     title_changed?
   end
 
-  def shortened_content(length)
-    self.content.to_trix_html.truncate(length).html_safe
+  def shortened_content(amount)
+    self.content.to_plain_text.split('</div>').first.split('<br>').first.truncate(amount)
   end
 
   def convert_html

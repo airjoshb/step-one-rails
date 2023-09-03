@@ -16,7 +16,13 @@ class PostsController < ApplicationController
       @more = @all_posts.only_parents.offset(10)
       @first_post = @all_posts.only_parents.first
     end
-    
+  end
+
+  def feed
+    @posts = Post.only_parents
+    respond_to do |format|
+      format.rss { render layout: false }
+    end
   end
 
   def show

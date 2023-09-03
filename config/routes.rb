@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   root 'main#index'
   resources :products
   resources :posts
+  get '/feed', to: 'posts#feed', as: :feed
   get '/updates', to: 'posts#index', category: 'updates', as: :update
   get '/joshua', to: 'pages#show', slug: 'joshua', as: :about
   get '/shop', to: 'products#index', as: 'shop'

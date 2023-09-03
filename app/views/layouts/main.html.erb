@@ -9,6 +9,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= auto_discovery_link_tag :rss, feed_url(:format => :rss) %>
     <%= yield(:head) %>
   </head>
 
