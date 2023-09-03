@@ -17,12 +17,13 @@ class Post < ApplicationRecord
   # after_save :convert_html, if: Proc.new { html_text_changed? }
   before_validation :should_generate_new_friendly_id?
 
-  default_scope  { order(created_at: :desc) }
+  default_scope  { order(pub_date: :desc) }
   scope :no_children, -> {left_joins(:children).where( children: {id: nil} )}
   scope :only_parents, -> {left_joins(:parent).where( parent: {id: nil} )}
   scope :updates, -> {left_joins(:category).where( category: {name: 'Updates'} )}
   scope :not_updates, -> {left_joins(:category).where.not( category: {name: 'Updates'} )}
-  scope :this_month, -> { where(created_at: Date.today.all_month) }
+  scope :this_month, -> { where(pub_date: Date.today.all_month) }
+  scope :recent, -> { where(pub_date: (Date.today - 1.month)..Date.today) }
 
   def has_children?
     self.children.present?
