@@ -11,6 +11,7 @@ xml.rss :version => "2.0" do
     @posts.each do |article|
       xml.item do
         xml.title article.title
+        xml.image_url image_url(article.image)
         xml.description article.content
         xml.pubDate article.pub_date.to_s
         xml.link post_url(article)
