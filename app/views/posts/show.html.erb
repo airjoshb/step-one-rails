@@ -53,7 +53,7 @@
             <circle cx="10" cy="10" r="8" stroke="transparent" fill="brand" ></circle>
           </svg>
         </div>
-        <% if @post.artifacts.any? %>
+        <% if @post.artifacts.not_embeds.any? %>
           <div class="w-full"><p class="gold-text heading-font py-2">In this post<p></div>
           <div class="flex wrap border border-solid border-gold-brand mb-6 px-4">
             <% for artifact in @post.artifacts %>
@@ -77,6 +77,15 @@
           </div>
         <% end %>
       </div>
+      <% if @post.artifacts.embeds.any? %>
+        <div class="detailContent">
+        <div class="flex-center wrap border border-solid border-gold-brand mb-6 p-4">
+          <% for artifact in @post.artifacts.embeds %>
+              <%= artifact.embed.html_safe %>
+          <% end %>
+        </div>
+        </div>
+      <% end %>
     </div>
 </div>
 </section>

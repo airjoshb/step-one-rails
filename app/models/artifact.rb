@@ -10,6 +10,9 @@ class Artifact < ApplicationRecord
   has_one_attached :markdown, dependent: :destroy
   has_many_attached :trix_attachments
 
+  scope :embeds, -> {where.not( embed: nil)}
+  scope :not_embeds, -> {where( embed: nil)}
+
   def thumbnail
     Cloudinary::Utils.cloudinary_url(
       self.image.url,
