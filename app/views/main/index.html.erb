@@ -30,9 +30,9 @@
           Upcoming Events
         </div>
           <% for event in @events %>
-            <div class="content">  
-              <h3 class=""><%= event.name %></h3>
-              <div class="post"><%= event.description %>
+            <div class="content p-4">  
+              <h3><%= event.name %></h3>
+              <div class="small"><%= event.description %>
             </div>
           <% end %>
         <% end %> 
