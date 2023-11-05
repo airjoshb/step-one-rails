@@ -35,8 +35,8 @@
               <div class="small"><%= event.description %>
             </div>
           <% end %>
-        <% end %> 
-    </div>
+      </div>
+    <% end %> 
   </section>
   <section id="about" class="bg-grey p-6 flex-end">
     <%= cl_image_tag(@about.image.key, width: 200, height: 200, crop: :scale, class: "border-r-thick border-solid border-green-brand", alt: @about.name) %>
