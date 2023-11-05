@@ -1,6 +1,6 @@
  <section id="quote" class="bg-gold"> 
 <div class="post mb-4  mt-2 flex">
-   <div class="flex-third m-2"> <%= cl_image_tag(artifact.image.key, transformation: { dpr: "auto", responsive: true, width: "auto", crop: "scale"}, alt: artifact.name, class: "border-l-thick border-green-brand border-solid mr-4") %></div>
+   <div class="flex-third m-2"> <%= cl_image_tag(artifact.image.key, width: 450, transformation: { dpr: "auto", responsive: true, width: "auto", crop: "scale"}, alt: artifact.name, class: "border-l-thick border-green-brand border-solid mr-4") %></div>
     <div class="flex-column align-end ">
       <h4 class="text-grey-lightest"><%= artifact.name %></h4>
       <div class="text-grey-lightest"><%= artifact.description %></div>
