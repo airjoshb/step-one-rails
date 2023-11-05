@@ -13,6 +13,7 @@ class ArtifactResource < Avo::BaseResource
   field :id, as: :id
   # Fields generated from the model
   field :name, as: :text
+  field :artifact_date, as: :date
   field :url, as: :text
   field :image, as: :file
   field :markdown, as: :file

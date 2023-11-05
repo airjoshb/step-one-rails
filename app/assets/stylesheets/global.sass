@@ -19,6 +19,8 @@ body
   background-color: $bg-grey
 .bg-grey  
   background-color: $standard-light-grey
+.bg-gold 
+  background-color: lighten($standard-gold, 10)
 h1,
 .h1 
 	font-family: $standard-header
@@ -283,8 +285,6 @@ ol
 .mx-3 
   margin-left: $space3 
   margin-right: $space3 
-.row 
-  display: flex 
 .flex-center 
   display: flex 
   justify-content: center 
@@ -327,8 +327,16 @@ ol
   display: flex
 .wrap
   flex-wrap: wrap
+.around
+  justify-content: space-around 
 .column
   flex-direction: column
+.row
+  flex-direction: row
+.flex-third
+  flex: 0 0 33.3333%;
+.flex-half
+  flex: 0 0 50%;
 .justify-end
   justify-self: flex-end
 .content-end
@@ -688,6 +696,13 @@ ol
 
 .text-grey-lightest
   color: $bg-light-gray
+  *
+    color: $bg-light-gray
+    &:hover
+      color: $standard-green
+      border-color: $standard-green
+      -webkit-box-shadow: inset 0 -1px 0 $standard-green
+      box-shadow: inset 0 -1px 0 $standard-green
 
 .text-lg
   font-size: 20px

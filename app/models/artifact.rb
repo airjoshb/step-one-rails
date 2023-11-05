@@ -12,6 +12,7 @@ class Artifact < ApplicationRecord
 
   scope :embeds, -> {where.not( embed: nil)}
   scope :not_embeds, -> {where( embed: nil)}
+  scope :upcoming, -> {where( 'artifact_date >= ?', Date.today )}
 
   def thumbnail
     Cloudinary::Utils.cloudinary_url(
