@@ -31,7 +31,7 @@
         </div>
           <% for event in @events %>
             <div class="content p-4">  
-              <h3><%= event.name %></h3>
+              <a href="<%= event.url %>"><h3><%= event.name %></h3></a>
               <strong><%= event.artifact_date.strftime("%B %d, %Y") %></strong>
               <div class="small"><%= event.description %></div>
             </div>
