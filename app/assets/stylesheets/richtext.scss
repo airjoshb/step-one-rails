@@ -13,6 +13,11 @@ trix-editor {
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
     margin: 0;
+  ul 
+    text-indent: 10px
+    list-style-position: inside
+    list-style: disc 
+  
   }
 
   h1 { font-size: 36px; }
@@ -22,11 +27,6 @@ trix-editor {
   h5 { font-size: 14px; }
   h6 { font-size: 12px; }
 
-  ul 
-    text-indent: 10px
-    list-style-position: inside
-    list-style: disc 
-  
   .attachment { width: 100%; }
 
   .attachment--content.attachment--horizontal-rule,
