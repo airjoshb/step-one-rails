@@ -1,5 +1,5 @@
 <%= form_with(model: customer, class: "inline") do |form| %>
-    <%= form.text_field :name, class: "form-input", placeholder: "Enter Name" %>
-    <%= form.text_field :email, class: "form-input", placeholder: "Enter Email" %>
+    <%= form.text_field :name, class: "form-input", placeholder: "Name" %>
+    <%= form.text_field :email, class: "form-input", placeholder: "Email" %>
     <span class="w-6 inline"><%= form.submit "sign me up", class: "button button-text" %></span>
 <% end %>
