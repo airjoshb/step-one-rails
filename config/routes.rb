@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post 'cart/remove'
   resources :charges, only: [:new]
   post 'charge', to: 'charges#charge'
-  
+  resources :customers
   resources :sessions, only: [:index, :show, :destroy]
   resource  :password, only: [:edit, :update]
   namespace :identity do

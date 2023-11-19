@@ -55,6 +55,7 @@ gem "sitepress-rails", "~> 3.2"
 
 # Ecommerce
 gem 'stripe'
+gem 'mailkick'
 
 # Product enhancements
 gem 'friendly_id', '~> 5.4.0'
