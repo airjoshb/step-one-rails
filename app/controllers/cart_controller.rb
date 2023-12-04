@@ -27,9 +27,9 @@ class CartController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to cart_path }
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace('cart', partial: 'cart/icon', locals: {cart: @cart})
-      end
+      # format.turbo_stream do
+      #   render turbo_stream: turbo_stream.replace('cart', partial: 'cart/icon', locals: {cart: @cart})
+      # end
     end
   end
 
