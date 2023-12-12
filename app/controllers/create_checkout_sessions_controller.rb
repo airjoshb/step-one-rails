@@ -12,20 +12,25 @@ class CreateCheckoutSessionsController < ApplicationController
  
   def create
     cart = Cart.find(params[:cart_id])
-    prices = cart.variations.group(:id).pluck('stripe_id, count(stripe_id)')
+    prices = cart.orderables.joins(:variation).pluck('variations.stripe_id', 'quantity')
+    # prices = cart.variations.group(:id).pluck('stripe_id, count(stripe_id)')
     adjustable = Hash(enabled: true, minimum: 1, maximum: 10)
     line_items = prices.map{|e| {price:  e.first, quantity: e.last, adjustable_quantity: adjustable} }
     mode = cart.variations.recurring.any? ? "subscription" : "payment"
+    customer_creation = "if_required" unless mode == "subscription"
     checkout_session = Stripe::Checkout::Session.create({
       line_items: line_items,
       mode: mode,
-      customer_creation: "if_required",
+      customer_creation: customer_creation,
       allow_promotion_codes: true,
       phone_number_collection: {
         enabled: true
       },
       shipping_address_collection: {
         allowed_countries: ['US'],
+      },
+      consent_collection: {
+        promotions: 'auto',
       },
       success_url: cart_success_url,
       cancel_url:  cart_cancel_url,
@@ -55,10 +60,6 @@ class CreateCheckoutSessionsController < ApplicationController
     end
     
     case event['type']
-    when 'customer.created'
-      checkout_session = event['data']['object']
-
-      create_customer(checkout_session)
     when 'checkout.session.completed'
       checkout_session = event['data']['object']
 
@@ -73,6 +74,45 @@ class CreateCheckoutSessionsController < ApplicationController
       if checkout_session.payment_status == 'paid'
         process_order(checkout_session)
       end
+    when 'payment_method.attached'
+    when 'customer.created'
+      customer = event['data']['object']
+
+      create_customer(customer.id, nil, nil)
+    when  'customer.updated'
+      customer = event['data']['object']
+
+      update_customer(customer)
+    when 'invoice.created'
+      invoice = event['data']['object']
+
+      create_invoice(invoice)
+    when 'invoice.updated'
+    when 'invoice.upcoming'
+    when 'invoice.paid'
+    when 'invoice.payment_succeeded'
+      invoice = event['data']['object']
+      
+      pay_invoice(invoice.id)
+    when 'invoice.finalized' 
+      invoice = event['data']['object']
+
+      finalize_invoice(invoice)
+    when 'customer.subscription.created'
+      subscription = event['data']['object']
+
+      attach_subscription(subscription)
+    when 'customer.subscription.updated'
+      subscription = event['data']['object']
+      
+      update_subscription_status(subscription)
+    when 'customer.subscription.updated'
+      subscription = event['data']['object']
+      
+      cancel_subscription(subscription)
+    when 'payment_intent.succeeded'
+    when 'payment_intent.created'
+    when 'charge.succeeded'
     when 'checkout.session.async_payment_succeeded'
       checkout_session = event['data']['object']
 
@@ -86,55 +126,196 @@ class CreateCheckoutSessionsController < ApplicationController
     else
       puts "Unhandled event type: #{event.type}"
     end
-    render json: { state: "processed" }, status: :ok
+    head :ok
     # status 200
   end
 
   private
-  def create_customer(checkout_session)
-    search = Stripe::Customer.search({query: "email:\'#{checkout_session.email}\'"}).first
-    customer ||= Stripe::Customer.retrieve(search.id)
-    if customer.nil?
-      customer = Customer.create(stripe_id: checkout_session.id, email: checkout_session.email, phone: checkout_session.phone, name: checkout_session.name)
-    end
-    puts "Created #{customer.name} for #{checkout_session.inspect}"
-  end
-
-  def process_order(checkout_session)
-    order = CustomerOrder.find_by_stripe_checkout_id(checkout_session.id)
-    order.processed!
-    puts "Fulfilling ##{order.guid} for #{order.orderables.inspect}"
-  end
-
   def create_order(checkout_session)
     begin
       order = CustomerOrder.find_by_stripe_checkout_id(checkout_session.id)
-      payment = Stripe::PaymentIntent.retrieve(checkout_session.payment_intent)
-      payment_method = Stripe::PaymentMethod.retrieve(payment.payment_method)
-      address_check = payment_method.card.checks.address_line1_check == "pass" && payment_method.card.checks.address_postal_code_check == "pass" ? true : false
-      address = Address.create(
-        street_1: checkout_session.shipping_details.address.line1, 
-        street_2: checkout_session.shipping_details.address.line2, 
-        city: checkout_session.shipping_details.address.city, 
-        state: checkout_session.shipping_details.address.state, 
-        postal: checkout_session.shipping_details.address.postal_code, 
-        address_check: address_check, 
-        customer_order: order)
-      pass_check = payment_method.card.checks.cvc_check == "pass" ? true : false
-      method = PaymentMethod.create(
-        stripe_id: payment_method.id, 
-        card_type: payment_method.card.brand, 
-        cvc_check: pass_check, 
-        last_4: payment_method.card.last4,
-        customer_order: order)
-      order.update(description: payment.description, stripe_id: checkout_session.payment_intent, amount: checkout_session.amount_total)
-      customer = Customer.where(email: checkout_session.customer_details.email).first_or_create
-      customer.update(phone: checkout_session.customer_details.phone, name: checkout_session.customer_details.name)
-      customer.customer_orders << order
+      consent = checkout_session.consent.promotions == "opt_in" ? true : false
+      if checkout_session.mode == "subscription"
+        invoice = Stripe::Invoice.retrieve(checkout_session.invoice)
+        intent = Stripe::PaymentIntent.retrieve(invoice.payment_intent) 
+      else
+        intent = Stripe::PaymentIntent.retrieve(checkout_session.payment_intent)
+      end
+      create_address(checkout_session, order)
+      create_payment_method(intent.payment_method, order)
+      order.update(stripe_id: checkout_session.id, amount: checkout_session.amount_total, subscription_id: checkout_session.subscription )
+      create_customer(checkout_session.customer_details, order, consent)
+      # customer = Customer.where(email: checkout_session.customer_details.email).first_or_create
+      # customer.update(promotion_consent: consent)
+      # customer.customer_orders << order
+      if checkout_session.mode == "subscription"
+        attach_invoice(invoice, order)
+      end
     end
     puts "Created order ##{order.guid} for #{checkout_session.inspect}"
   end
   
+  def create_payment_method(payment, order)
+    payment_method = Stripe::PaymentMethod.retrieve(payment)
+    if payment_method.card.present?
+      pass_check = payment_method.card.checks.cvc_check == "pass" ? true : false
+      card_type = payment_method.card.brand
+      card_four = payment_method.card.last4
+    else
+      pass_check = true
+      card_type = payment_method.type
+      card_four = ""
+    end
+    order_payment = PaymentMethod.create_with(card_type: card_type, 
+      cvc_check: pass_check, 
+      last_4: card_four,
+      customer_order: order).find_or_create_by(stripe_id: payment_method.id)
+    puts "Created Payment Method for #{order_payment.inspect}"
+  end
+
+  def create_customer(customer, order, consent)
+    stripe_customer = Stripe::Customer.search(query: 'email:'"'#{customer.email}'")
+    if stripe_customer.present?
+      customer = stripe_customer.first
+      stripe_id = customer.id
+    else
+      customer = customer
+      stripe_id = nil
+    end
+    order_customer = Customer.create_with(promotion_consent: consent, phone: customer.phone, name: customer.name, stripe_id: stripe_id ).find_or_create_by(email: customer.email)
+    order_customer.customer_orders << order if order.present?
+    puts "Created #{order_customer.name} for #{stripe_customer.inspect}"
+  end
+
+  def create_address(checkout_session, order)
+    address = Address.create(street_1: checkout_session.shipping_details.address.line1,
+      street_2: checkout_session.shipping_details.address.line2, 
+      city: checkout_session.shipping_details.address.city, 
+      state: checkout_session.shipping_details.address.state, 
+      postal: checkout_session.shipping_details.address.postal_code,
+      name: checkout_session.shipping_details.name,
+      customer_order: order
+    )
+    puts "Created Address for #{checkout_session.inspect}"
+  end
+
+  def create_invoice(invoice)
+    if invoice.subscription.present?
+      customer_order = CustomerOrder.find_by_subscription_id(invoice.subscription)
+    else
+      stripe_customer = Stripe::Customer.retrieve(invoice.customer)
+      customer = Customer.create_with(phone: stripe_customer.phone, name: stripe_customer.name).find_or_create_by(stripe_id: stripe_customer.id)
+      customer_order = customer.customer_orders.create
+    end
+    new_invoice = Invoice.find_or_create_by(invoice_id: invoice.id, customer_order: customer_order)
+    time_start = Time.at(invoice.period_start.to_i)
+    time_end = Time.at(invoice.period_end.to_i)
+    new_invoice.update(subscription_id: invoice.subscription, period_start: time_start, period_end: time_end,
+      amount_due: invoice.amount_due, invoice_status: invoice.status
+    )
+    puts "Created invoice ##{new_invoice.id}"
+  end
+
+  def finalize_invoice(invoice)
+    stripe_invoice = Stripe::Invoice.retrieve(invoice.id)
+    order_invoice = Invoice.find_by(invoice_id: stripe_invoice.id)
+    customer_order = order_invoice.customer_order
+    if customer_order.present? && customer_order.orderables.blank?
+      cart = Cart.create
+      for line in  stripe_invoice.lines
+        variation = Variation.find_by(stripe_id: line.price.id)
+        customer_order.orderables.create(variation: variation, quantity: line.quantity, cart: cart, current: true)
+      end
+    end
+    time_start = Time.at( stripe_invoice.period_start.to_i)
+    time_end = Time.at( stripe_invoice.period_end.to_i)
+    order_invoice.update(period_start: time_start, period_end: time_end,
+      amount_due:  stripe_invoice.amount_due, invoice_status:  stripe_invoice.status
+    )
+    if stripe_invoice.status == "paid"
+      order_invoice.paid!
+    end
+  end
+
+  def update_customer(customer)
+    stripe_customer = Stripe::Customer.retrieve(customer.id)
+    order_customer = Customer.find_by_stripe_id(stripe_customer.id)
+    order_customer.update(email: stripe_customer.email, phone: stripe_customer.phone, name: stripe_customer.name)
+    puts "Updated #{customer.name} for #{stripe_customer.inspect}"
+  end
+
+  def attach_invoice(invoice, order)
+    time_start = Time.at(invoice.period_start.to_i)
+    time_end = Time.at(invoice.period_end.to_i)
+    order_invoice = Invoice.create_with(subscription_id: invoice.subscription, period_start: time_start, period_end: time_end,
+      amount_due: invoice.amount_due, invoice_status: invoice.status).find_or_create_by(invoice_id: invoice.id)
+    customer_order = CustomerOrder.find(order.id)
+    customer_order.invoices << order_invoice
+  end
+  
+  def attach_subscription(subscription)
+    order = CustomerOrder.find_by_subscription_id(subscription.id)
+    return unless order.present?
+    stripe_subscription = Stripe::Subscription.retrieve(subscription)
+    price = stripe_subscription.items.first.price.id
+    unless order.variations.exists?(stripe_id: price)
+      variation = Variation.find_by_stripe_id(price)
+      order.orderables.last.update(current: false) if order.orderables.size > 1
+      order.orderables.create(variation: variation, quantity: stripe_subscription.items.first.quantity, cart: order.orderables.first.cart, current: true)
+    end
+    order.update(subscription_status: stripe_subscription.status)
+    puts "Updated Subscription"
+  end
+
+  def update_subscription_status(subscription)
+    order = CustomerOrder.find_by_subscription_id(subscription.id)
+    return unless order.present?
+    stripe_subscription = Stripe::Subscription.retrieve(subscription.id)
+    price = stripe_subscription.items.first.price.id
+    if subscription.pause_collection.present?
+      sub_status = "paused"
+    else
+      sub_status = stripe_subscription.status
+    end
+    unless order.variations.exists?(stripe_id: price)
+      variation = Variation.find_by_stripe_id(price)
+      order.orderables.last.update(current: false) if order.orderables.size > 1
+      order.orderables.create(variation: variation, quantity: stripe_subscription.items.first.quantity, cart: order.orderables.first.cart, current: true)
+    end
+    order.update(subscription_status: sub_status)
+    puts "Updated Subscription"
+  end
+
+  def cancel_subscription(subscription)
+    order = CustomerOrder.find_by_subscription_id(subscription.id)
+    order.update(subscription_status: stripe_subscription.status, canceled_at: subscription.canceled_at)
+    order.orderables.last.update(current: false)
+    puts "Cancel Subscription"
+  end
+
+  def process_order(checkout_session)
+    order = CustomerOrder.find_by_stripe_checkout_id(checkout_session.id)
+    if order.orderables.trackable.any?
+      adjustments = order.orderables.trackable
+      adjustments.each do |adjustment|
+        adjustment.variation.adjust_count_on_hand(adjustment.quantity)
+      end
+    end
+    pay_invoice(checkout_session.invoice) if checkout_session.mode == "subscription"
+    order.processed!
+    puts "Processed ##{order.guid} for #{order.orderables.inspect}"
+  end
+
+  def pay_invoice(invoice)
+    stripe_invoice = Stripe::Invoice.retrieve(invoice)
+    order_invoice = Invoice.find_by(invoice_id: stripe_invoice)
+    customer_order = order_invoice.customer_order
+    charge = Stripe::Charge.retrieve(stripe_invoice.charge)
+    create_payment_method(charge.payment_method, customer_order) unless customer_order.payment_method.present?
+    order_invoice.update(amount_paid: stripe_invoice.amount_paid, invoice_status: stripe_invoice.status)
+    order_invoice.paid!
+  end
+
   def email_customer_about_failed_payment(checkout_session)
     order = Order.find_by_stripe_id(checkout_session.payment_intent)
     order.failed!
