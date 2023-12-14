@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_19_220317) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_14_160240) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_220317) do
     t.bigint "customer_order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["customer_order_id"], name: "index_addresses_on_customer_order_id"
   end
 
@@ -122,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_220317) do
     t.string "stripe_checkout_id"
     t.boolean "receipt_sent"
     t.datetime "receipt_sent_date"
+    t.string "subscription_id"
     t.index ["customer_id"], name: "index_customer_orders_on_customer_id"
   end
 
@@ -132,6 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_220317) do
     t.datetime "updated_at", null: false
     t.string "phone"
     t.string "stripe_id"
+    t.boolean "promotion_consent"
   end
 
   create_table "email_verification_tokens", force: :cascade do |t|
