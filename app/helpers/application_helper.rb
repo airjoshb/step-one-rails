@@ -19,6 +19,16 @@ module ApplicationHelper
     end 
   end 
 
+  def subscription_quantity(interval, quantity)
+    if quantity <= 1
+      "#{interval}ly"
+    else
+      "every 
+      #{quantity}
+      #{ interval.pluralize }"
+    end
+  end
+
   def deep_active_sub_link_to(name, path)
     content_tag(:div, class: "#{'active fw-bold' if current_page?(path)} category subcategory border-t-2 border-solid") do
       link_to name, path

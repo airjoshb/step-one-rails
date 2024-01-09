@@ -26,10 +26,10 @@
 
 <section id="product">
   <div class="product-container">
+    <div class="imageContainer">
+      <%= cl_image_tag(@product.image.key, width: 660, alt: @product.name) if @product.image.attached? %>
+    </div>
     <div class="content">
-      <div class="imageContainer">
-        <%= image_tag @product.image.variant(resize_to_limit: [800, 800]) if @product.image.attached? %>
-      </div>
       <div class="details">
         <h1><%= @product.name %></h1>
         <p class="description"><%= @product.description %></p>
@@ -44,14 +44,21 @@
                       <%= variation.name.pluralize %>
                   <% else %>
                     <%= variation.name %>
+                    <% if variation.trackable? %>
+                    <div><small><i>Only <%= variation.count_on_hand - 1 %> left</i></small></div>
+                    <% end %>
                   <% end %>
                 </span>
-                <span class="price"><%= display_price(variation.amount) %></span>
+                <span class="price"><%= display_price(variation.amount) %>
+                <br />
+                  <%= subscription_quantity(variation.interval, variation.interval_count) if variation.recurring? %>
+                </span>
+
                 <% if variation.in_stock? %>
                   <span class="quantity">
                     <%= f.number_field :quantity, value: 1, min: 1 %>
                   </span>
-                  <span><%= f.submit "Add to Bag", class: "button primary" %></span>
+                  <span><%= f.submit "Order", class: "button primary" %></span>
                 <% end %>
               </div>
             <% end %> 
