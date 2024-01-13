@@ -27,7 +27,7 @@
 <section id="product">
   <div class="product-container">
     <div class="imageContainer">
-      <%= cl_image_tag(@product.image.key, width: 660, alt: @product.name) if @product.image.attached? %>
+      <%= cl_image_tag(@product.image.key, alt: @product.name) if @product.image.attached? %>
     </div>
     <div class="content">
       <div class="details">
