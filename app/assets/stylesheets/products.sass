@@ -376,8 +376,9 @@
     margin: 0 auto
   #shop .postContainer .content, #page .postContainer .content, #post .postContainer .content
     width: 100%
-  #product .product-container .content
-    grid-template-columns: repeat(1, 1fr)
+  #product .product-container, #product .product-container .content, #product .product-container .detailContent
+    display: flex
+    width: 100%
   .variations
     border-left: 3px double #53524E
   #post 
