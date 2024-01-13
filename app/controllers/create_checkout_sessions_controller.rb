@@ -156,6 +156,7 @@ class CreateCheckoutSessionsController < ApplicationController
   end
   
   def create_payment_method(intent, order)
+    return if order.payment_method.present?
     payment_intent = Stripe::PaymentIntent.retrieve(intent)
     payment_method = Stripe::PaymentMethod.retrieve(payment_intent.payment_method)
     charge = Stripe::Charge.retrieve(payment_intent.latest_charge)
@@ -191,6 +192,7 @@ class CreateCheckoutSessionsController < ApplicationController
   end
 
   def create_address(checkout_session, order)
+    return if order.address.present?
     address = Address.create(street_1: checkout_session.shipping_details.address.line1,
       street_2: checkout_session.shipping_details.address.line2, 
       city: checkout_session.shipping_details.address.city, 
