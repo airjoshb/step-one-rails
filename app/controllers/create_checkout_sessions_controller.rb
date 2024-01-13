@@ -156,20 +156,22 @@ class CreateCheckoutSessionsController < ApplicationController
   end
   
   def create_payment_method(payment, order)
-    payment_method = Stripe::PaymentMethod.retrieve(payment)
-    if payment_method.card.present?
-      pass_check = payment_method.card.checks.cvc_check == "pass" ? true : false
-      card_type = payment_method.card.brand
-      card_four = payment_method.card.last4
+    payment_intent = Stripe::PaymentIntent.retrieve(intent)
+    payment_method = Stripe::PaymentMethod.retrieve(payment_intent)
+    charge = Stripe::Charge.retrieve(payment_intent.latest_charge)
+    if charge.payment_method_details.type == "card"
+      card = charge.payment_method_details.card
+      pass_check = card.checks.cvc_check == "pass" ? true : false
+      order_payment = PaymentMethod.create_with(card_type: card.brand, 
+        cvc_check: pass_check, 
+        last_4: card.last4,
+        customer_order: order).find_or_create_by(stripe_id: payment_method.id)
     else
-      pass_check = true
-      card_type = payment_method.type
-      card_four = ""
+      order_payment = PaymentMethod.create_with(card_type: charge.payment_method_details.type, 
+        cvc_check: true, 
+        last_4: "",
+        customer_order: order).find_or_create_by(stripe_id: payment_method.id)
     end
-    order_payment = PaymentMethod.create_with(card_type: card_type, 
-      cvc_check: pass_check, 
-      last_4: card_four,
-      customer_order: order).find_or_create_by(stripe_id: payment_method.id)
     puts "Created Payment Method for #{order_payment.inspect}"
   end
 
