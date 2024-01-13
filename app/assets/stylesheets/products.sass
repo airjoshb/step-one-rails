@@ -376,9 +376,17 @@
     margin: 0 auto
   #shop .postContainer .content, #page .postContainer .content, #post .postContainer .content
     width: 100%
-  #product .product-container, #product .product-container .content, #product .product-container .detailContent
+  #product, #product .product-container, #product .product-container .content, #product .product-container .detailContent
     display: flex
     width: 100%
+    .priceContainer
+      grid-template-columns: 140px auto auto auto
+      .variation
+        white-space: normal
+  #product .product-container .details
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   .variations
     border-left: 3px double #53524E
   #post 
