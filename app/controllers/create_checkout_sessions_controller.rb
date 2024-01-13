@@ -155,7 +155,7 @@ class CreateCheckoutSessionsController < ApplicationController
     puts "Created order ##{order.guid} for #{checkout_session.inspect}"
   end
   
-  def create_payment_method(payment, order)
+  def create_payment_method(intent, order)
     payment_intent = Stripe::PaymentIntent.retrieve(intent)
     payment_method = Stripe::PaymentMethod.retrieve(payment_intent.payment_method)
     charge = Stripe::Charge.retrieve(payment_intent.latest_charge)
