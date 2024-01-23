@@ -53,8 +53,17 @@
       margin: 0 auto 2rem
       border-left: .8rem solid $standard-green
       border-right: none
+@media (max-width: 767px) 
+  #quote 
+    .post
+      flex-direction: column
+      margin-bottom: 10px
+      *
+        align-self: center
+  
 @media (max-width: 600px) 
-  #quote p 
-    font-size: 22px
-    line-height: 32px
+  #quote 
+    p 
+      font-size: 22px
+      line-height: 32px
     
