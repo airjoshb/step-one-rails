@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_14_160240) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_23_215316) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,6 +92,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_160240) do
     t.index ["post_id"], name: "index_artifacts_posts_on_post_id"
   end
 
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "campaigns_customers", id: false, force: :cascade do |t|
+    t.bigint "campaign_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_campaigns_customers_on_campaign_id"
+    t.index ["customer_id"], name: "index_campaigns_customers_on_customer_id"
+  end
+
+  create_table "campaigns_emails", id: false, force: :cascade do |t|
+    t.bigint "campaign_id", null: false
+    t.bigint "email_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_campaigns_emails_on_campaign_id"
+    t.index ["email_id"], name: "index_campaigns_emails_on_email_id"
+  end
+
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -106,6 +131,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_160240) do
     t.integer "parent_id"
     t.integer "row_order"
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "customer_emails", force: :cascade do |t|
+    t.bigint "email_id", null: false
+    t.bigint "customer_id", null: false
+    t.boolean "email_sent"
+    t.datetime "sent_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_customer_emails_on_customer_id"
+    t.index ["email_id"], name: "index_customer_emails_on_email_id"
   end
 
   create_table "customer_orders", force: :cascade do |t|
@@ -140,6 +176,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_160240) do
   create_table "email_verification_tokens", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_email_verification_tokens_on_user_id"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.datetime "date_sent"
+    t.string "subject"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -271,6 +314,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_14_160240) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "customer_orders"
   add_foreign_key "artifacts", "categories"
+  add_foreign_key "customer_emails", "customers"
+  add_foreign_key "customer_emails", "emails"
   add_foreign_key "customer_orders", "customers"
   add_foreign_key "email_verification_tokens", "users"
   add_foreign_key "orderables", "carts"

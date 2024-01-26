@@ -12,6 +12,7 @@ class CustomerResource < Avo::BaseResource
   field :phone, as: :text
   field :stripe_id, as: :text
   field :customer_orders, as: :has_many
+  field :customer_emails, as: :has_many
   field :addresses, as: :has_many, through: :orders
   field :payment_methods, as: :has_many, through: :orders
   # add fields here

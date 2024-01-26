@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: one
+  customer: one
+  email_sent: false
+  sent_date: 2024-01-23 13:53:16
+
+two:
+  email: two
+  customer: two
+  email_sent: false
+  sent_date: 2024-01-23 13:53:16
