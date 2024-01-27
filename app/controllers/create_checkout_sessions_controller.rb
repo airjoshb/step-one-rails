@@ -78,7 +78,7 @@ class CreateCheckoutSessionsController < ApplicationController
     when 'customer.created'
       customer = event['data']['object']
 
-      create_customer(customer.id, nil, nil)
+      create_customer(customer, nil, nil)
     when  'customer.updated'
       customer = event['data']['object']
 
@@ -149,7 +149,7 @@ class CreateCheckoutSessionsController < ApplicationController
       # customer.update(promotion_consent: consent)
       # customer.customer_orders << order
       if checkout_session.mode == "subscription"
-        attach_invoice(invoice, order)
+        attach_invoice(invoice.id, order)
       end
     end
     puts "Created order ##{order.guid} for #{checkout_session.inspect}"
@@ -157,9 +157,8 @@ class CreateCheckoutSessionsController < ApplicationController
   
   def create_payment_method(intent, order)
     return if order.payment_method.present?
-    payment_intent = Stripe::PaymentIntent.retrieve(intent)
-    payment_method = Stripe::PaymentMethod.retrieve(payment_intent.payment_method)
-    charge = Stripe::Charge.retrieve(payment_intent.latest_charge)
+    payment_method = Stripe::PaymentMethod.retrieve(intent.payment_method)
+    charge = Stripe::Charge.retrieve(intent.latest_charge)
     if charge.payment_method_details.type == "card"
       card = charge.payment_method_details.card
       pass_check = card.checks.cvc_check == "pass" ? true : false
@@ -190,6 +189,7 @@ class CreateCheckoutSessionsController < ApplicationController
     order_customer.customer_orders << order if order.present?
     puts "Created #{order_customer.name} for #{stripe_customer.inspect}"
   end
+
 
   def create_address(checkout_session, order)
     return if order.address.present?
