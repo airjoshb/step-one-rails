@@ -11,7 +11,7 @@ class Artifact < ApplicationRecord
   has_many_attached :trix_attachments
 
   scope :embeds, -> {where.not( embed: nil)}
-  scope :not_embeds, -> {where( embed: nil)}
+  scope :not_embeds, -> {where( embed: [nil, ""])}
   scope :upcoming, -> {where( 'artifact_date >= ?', Date.today )}
 
   def thumbnail
