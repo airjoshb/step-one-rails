@@ -11,5 +11,7 @@ class EmailResource < Avo::BaseResource
   field :subject, as: :text
   field :body, as: :trix, attachment_key: :trix_attachments, through: :action_text_rich_texts
   field :campaigns, as: :has_and_belongs_to_many
+  field :customer_emails, as: :has_many
+  field :customers, as: :has_many, through: :customer_emails
   # add fields here
 end
