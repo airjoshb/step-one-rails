@@ -15,7 +15,7 @@
   <meta itemprop="headline", content="<%=@post.title %>" />
   <meta itemprop="description", content="<%= @post.content.to_plain_text.truncate(300) %>" />
   <meta itemprop="image", content="<%=@post.image.url if @post.image.attached? %>" />
-  <meta itemprop="datePublished", content="<%=@post.pub_date.to_time.iso8601 %>" />
+  <meta itemprop="datePublished", content="<%=@post.pub_date.to_time.iso8601 unless @post.pub_date.blank? %>" />
   <link rel="canonical" href="<%= @post_url %>" />
 <% end %>
 <% content_for content_for :html do %>
