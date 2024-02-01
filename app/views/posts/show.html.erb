@@ -33,7 +33,9 @@
         <div class="postTitle">
           <%= image_tag 'step-one-icon.svg', width: 50, alt: "Step One Hand Icon" %>
           <h1 class="pb-4"><%= @post.title %></h1>
-          <i class="postDate">posted <%= time_ago_in_words @post.pub_date %> ago in <%= @post.category.parent.present? ? @post.category.parent.name + " :: " + @post.category.name : @post.category.name %></i>
+          <% unless @post.pub_date.blank? %>
+            <i class="postDate">posted <%= time_ago_in_words @post.pub_date %> ago in <%= @post.category.parent.present? ? @post.category.parent.name + " :: " + @post.category.name : @post.category.name %></i>
+          <% end %>
           <div class="mt-4">
             <%= link_to "//twitter.com/share?url=#{post_url(@post)}&amp;text=I%20just%20saw%20this&amp;via=airjoshb", target: "_blank" do %>
               <%= image_tag "icons-twitter.svg", alt: "twitter", width: 22, height: 24, class: "svg-light" %>
