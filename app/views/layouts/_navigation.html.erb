@@ -11,7 +11,7 @@
 
         <div class="border-t-4 border-solid border-brand relative py-1 posts-nav ">
             <%= active_link_to "Posts", posts_path %>
-            <% for category in Category.no_children.where.not(name: "Updates") %>
+            <% for category in Category.no_children.where.not(name: ['Updates', 'event', 'feature']) %>
                 <%= deep_active_link_to category.name, posts_path(category: category) %>
                 <% if current_page?(posts_path(category: category))  %>
                     <% for child in category.children %>
