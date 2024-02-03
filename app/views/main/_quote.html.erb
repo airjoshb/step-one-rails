@@ -1,6 +1,7 @@
  <section id="quote" class="bg-dark"> 
    <% for artifact in @artifacts %>
-      <a href="<%= artifact.url %>">
+   <div class="flex column">
+    <a href="<%= artifact.url %>">
     <div class="post mb-4  mt-4 flex">
       <div class="flex-third m-2"> <%= cl_image_tag(artifact.image.key, width: 450, transformation: { dpr: "auto", responsive: true, width: "auto", crop: "scale"}, alt: artifact.name, class: "border-l-thick border-green-brand border-solid mr-4") %></div>
         <div class="flex-column align-end ">
@@ -9,6 +10,7 @@
         </div>
       </div>
           </a>
+    </div>
   <% end %>
 
 </section>
