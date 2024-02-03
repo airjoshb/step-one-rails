@@ -28,7 +28,7 @@ class CartController < ApplicationController
     respond_to do |format|
       format.html { redirect_to cart_path }
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace('cart', partial: 'cart/icon', locals: {cart: @cart})
+        render turbo_stream: turbo_stream.update('cart', partial: 'cart/icon', locals: {cart: @cart})
       end
     end
   end
@@ -39,7 +39,7 @@ class CartController < ApplicationController
     respond_to do |format|
       format.html { redirect_to cart_path }
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace('cart', partial: 'cart/prices', locals: {cart: @cart})
+        render turbo_stream: turbo_stream.update('cart', partial: 'cart/prices', locals: {cart: @cart})
       end
     end
   end
