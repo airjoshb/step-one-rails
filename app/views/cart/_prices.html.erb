@@ -1,6 +1,8 @@
-<div class= "imageContainer" role="presentation" >
-  <%= cl_image_tag(variation.product.image.key, width: 75, height: 75, crop: :fill, gravity: 'center', alt: variation.product.name) %>
-</div>
+<% unless variation.product.image.blank? %>
+  <div class= "imageContainer" role="presentation" >
+    <%= cl_image_tag(variation.product.image.key, width: 75, height: 75, crop: :fill, gravity: 'center', alt: variation.product.name) %>
+  </div>
+<% end %>
 <span class="variation">
   <% if variation.unit_quantity.present? && variation.unit_quantity > 1 %>
       <%= variation.unit_quantity %> - 

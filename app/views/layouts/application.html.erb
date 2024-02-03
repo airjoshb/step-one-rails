@@ -14,23 +14,39 @@
   </head>
 
   <body>
-    <div id="mobile-nav" class="py-4 px-4 flex-around">
-          <%= link_to root_path, class:"logo" do %>
-            <%= render 'main/logo' %>
-          <% end %>
-          <div class="px-4">
-              <%= active_link_to "Updates", update_path %>
+    <div id="mobile-nav" class="py-4 px-4">
+          <div class="flex-center row">
+            <%= link_to root_path, class:"logo" do %>
+              <%= render 'main/logo' %>
+            <% end %>
           </div>
+          <div class="flex-around flex">
+            <div class="px-4">
+                <%= active_link_to "Updates", update_path %>
+            </div>
+            <div class="px-4">
+                <%= active_link_to "Posts", posts_path %>
+            </div>
 
-          <div class="px-4">
-              <%= active_link_to "Crohn's Cookbook", "/products/the-crohn-s-disease-aip-cookbook" %>
-          </div>
-          
-          <div class="px-4">
-              <%= active_link_to "Posts", posts_path %>
-          </div>
-          <div class="px-4">
-              <%= active_link_to "About Joshua", about_path %>
+            <div class="px-4">
+                <%= active_link_to "Course",  "/products/year-of-magic" %>
+            </div>
+            <div class="px-4">
+                <%= active_link_to "Cookbook", "/products/the-crohn-s-disease-aip-cookbook" %>
+            </div>
+            
+            <div class="px-4">
+                <%= active_link_to "Joshua", about_path %>
+            </div>
+            <div class="px-4">
+              <button class="iconButton iconContainer bagIconContainer">
+                <%= link_to cart_path, rel: 'nofollow' do %>
+                    <%= render "layouts/basket_icon" %>
+                    
+                <%= render "cart/icon", cart: @cart %>
+                <% end %>
+              </button>
+            </div>
           </div>
       </div>
     <main class="flex">
