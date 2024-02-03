@@ -7,9 +7,9 @@ class ArtifactResource < Avo::BaseResource
   # end
   action ConvertMarkdown
 
-  self.resolve_find_scope = ->(model_class:) do
-    model_class.friendly
-  end
+  self.find_record_method = ->(model_class:, id:, params:) {
+    model_class.friendly.find id
+  }
 
   field :id, as: :id
   # Fields generated from the model

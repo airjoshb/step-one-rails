@@ -63,7 +63,7 @@ gem 'friendly_id', '~> 5.4.0'
 # Admin
 # Use Pwned to check if a password has been found in any of the huge data breaches [https://github.com/philnash/pwned]
 gem "pwned"
-gem "avo"
+gem "avo", '~> 2.41.0'
 
 
 group :development, :test do
