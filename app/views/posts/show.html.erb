@@ -59,7 +59,7 @@
           <div class="w-full"><p class="gold-text heading-font py-2">In this post<p></div>
           <div class="flex wrap border border-solid border-gold-brand mb-6 px-4">
             <% for artifact in @post.artifacts %>
-                <%= link_to artifact.url, target: "_blank" do %>
+                <%= link_to artifact.url, target: "_blank", class: "artifact" do %>
                   <div class="flex-center py-4 artifact">
                     <%= cl_image_tag(artifact.image.key, width: 75, height: 75, crop: :fill, gravity: 'center', alt: artifact.name, class: "pr-4") if artifact.image.attached? %>
                     <h4><%= artifact.name %></h4>
@@ -75,7 +75,7 @@
               <circle cx="10" cy="10" r="8" stroke="transparent" fill="brand" ></circle>
             </svg>
             <h2 id="<%= child.title.split.join("_") %>", class="py-4"><%= child.title %></h2>
-            <small><%= link_to @post, "< Back to Top" %>
+            <small><%= link_to "< Back to Top", @post %></small>
             <% if child.artifacts.not_embeds.any? %>
               <div class="w-full"><p class="gold-text heading-font py-2">Downloadable Resources<p></div>
               <div class="flex column border border-solid border-gold-brand mb-6 px-4">
