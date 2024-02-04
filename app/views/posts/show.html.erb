@@ -43,7 +43,7 @@
           </div>
         </div>
           <% if @post.has_children? %>
-            <ol type="i" class="flex-center column mb-2" >
+            <ol type="i" class="flex-center column mb-2" id="<%= @post.title.split.join("_") %>" >
               <li><%= link_to @post.title, "#" %></li>
             <% for child in @post.children.order(:created_at) %>
               <li><%= link_to child.title, "##{child.title.split.join("_")}", class: "border-r-2 solid border-green" %></li>
@@ -75,7 +75,7 @@
               <circle cx="10" cy="10" r="8" stroke="transparent" fill="brand" ></circle>
             </svg>
             <h2 id="<%= child.title.split.join("_") %>", class="py-4"><%= child.title %></h2>
-            <small><%= link_to "< Back to Top", @post %></small>
+            <small><%= link_to "< Back to Top", "##{@post.title.split.join("_")}" %></small>
             <% if child.artifacts.not_embeds.any? %>
               <div class="w-full"><p class="gold-text heading-font py-2">Downloadable Resources<p></div>
               <div class="flex column border border-solid border-gold-brand mb-6 px-4">
