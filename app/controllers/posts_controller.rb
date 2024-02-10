@@ -5,13 +5,13 @@ class PostsController < ApplicationController
     if params[:category]
       @category = Category.find_by_slug(params[:category])
       children = Post.where(category_id: @category.children.pluck(:id))
-      parent = @category.posts
+      parent = @category.posts.published
       @all_posts = children + parent
       @posts = @all_posts[1..8]
       @first_post = @all_posts.first
       @more = @all_posts.flatten - @posts.flatten - [@first_post] unless @all_posts.empty?
     else
-      @all_posts = Post.not_updates
+      @all_posts = Post.published.not_updates
       @posts = @all_posts.only_parents[1..8]
       @more = @all_posts.only_parents.offset(10)
       @first_post = @all_posts.only_parents.first
