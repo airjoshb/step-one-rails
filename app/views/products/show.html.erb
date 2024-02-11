@@ -45,7 +45,7 @@
                   <% else %>
                     <%= variation.name %>
                     <% if variation.trackable? %>
-                    <div><small><i><% if variation.count_on_hand > 0 %>Only <%=variation.count_on_hand %> left <% else %>"Sold Out" <% end %> </i></small></div>
+                    <div><small><i><% if variation.count_on_hand > 0 %>Only <%=variation.count_on_hand %> left <% else %>Sold Out<% end %> </i></small></div>
                     <% end %>
                   <% end %>
                 </span>
