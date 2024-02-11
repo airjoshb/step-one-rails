@@ -24,7 +24,7 @@ class Post < ApplicationRecord
   scope :not_updates, -> {left_joins(:category).where.not( category: {name: 'Updates'} )}
   scope :this_month, -> { where(pub_date: Date.today.all_month) }
   scope :recent, -> { where(pub_date: (Date.today - 1.month)..Date.tomorrow) }
-  scope :published, -> { where.not(pub_date: [nil, '']) }
+  scope :published, -> { where.not(pub_date: nil)}
 
   def has_children?
     self.children.present?
