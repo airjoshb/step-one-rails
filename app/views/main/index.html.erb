@@ -23,9 +23,11 @@
     <div class="flex-half"> 
         <% if @posts %><%= render "posts" %><% end %> 
     </div>
-    <% if @events.present? %>
-      <div class="flex-third"> 
-        <div class=""><svg class="green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg></div>
+    <div class="flex-third"> 
+      <div class=""><svg class="green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg></div>
+      <iframe height='160' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/16279340/activity-summary/97130f6724bdcb84120d9f2cc590ad55e7f99929'></iframe>
+      <% if @events.present? %>
+
         <div class="border-t-thick border-solid border-green-brand date flex-end column">
           Upcoming Events
         </div>
@@ -36,8 +38,8 @@
               <div class="small"><%= event.description %></div>
             </div>
           <% end %>
-      </div>
-    <% end %> 
+      <% end %> 
+    </div>
   </section>
   <section id="about" class="bg-grey p-6 flex-end">
     <%= cl_image_tag(@about.image.key, width: 200, height: 200, crop: :scale, class: "border-r-thick border-solid border-green-brand", alt: @about.name) %>
