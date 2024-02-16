@@ -7,11 +7,6 @@
   <meta property="og:type", content="article" />
   <meta property="og:url", content="<%= post_url %>" />
   <meta property="og:image", content="<%=@post.image.url if @post.image.attached? %>" />
-  <meta name="twitter:title", content="<%=@post.title %> | Step One" />
-  <meta name="twitter:description", content="<%= @post.content.to_plain_text.truncate(300) %>" />
-  <meta name="twitter:image", content="<%=@post.image.url if @post.image.attached? %>" />
-  <meta name="twitter:card", content="summary" />
-  <meta name="twitter:url", content="<%=@post_url %>" />
   <meta itemprop="headline", content="<%=@post.title %>" />
   <meta itemprop="description", content="<%= @post.content.to_plain_text.truncate(300) %>" />
   <meta itemprop="image", content="<%=@post.image.url if @post.image.attached? %>" />
@@ -36,11 +31,6 @@
           <% unless @post.pub_date.blank? %>
             <i class="postDate">posted <%= time_ago_in_words @post.pub_date %> ago in <%= @post.category.parent.present? ? @post.category.parent.name + " :: " + @post.category.name : @post.category.name %></i>
           <% end %>
-          <div class="mt-4">
-            <%= link_to "//twitter.com/share?url=#{post_url(@post)}&amp;text=I%20just%20saw%20this&amp;via=airjoshb", target: "_blank" do %>
-              <%= image_tag "icons-twitter.svg", alt: "twitter", width: 22, height: 24, class: "svg-light" %>
-            <% end %>
-          </div>
         </div>
           <% if @post.has_children? %>
             <ol type="i" class="flex-center column mb-2" id="<%= @post.title.split.join("_") %>" >
