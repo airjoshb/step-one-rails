@@ -8,7 +8,7 @@
             <div class="contentContainer w-full flex">
               <% unless post.image.blank? %>
                 <div class="imageContainer pr-4">
-                  <%= cl_image_tag(post.image.key, width: 200, height: 200, crop: :fill, gravity: 'center', class: " border-r border-green-brand border-solid", alt: post.title) %>
+                  <%= cl_image_tag(post.image.key, width: 200, height: 200, crop: :fill, gravity: 'auto', class: " border-r border-green-brand border-solid", alt: post.title) %>
                 </div>
               <% end %>
               <div class="flex column content">
