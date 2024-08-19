@@ -25,6 +25,7 @@ class Post < ApplicationRecord
   scope :this_month, -> { where(pub_date: Date.today.all_month) }
   scope :recent, -> { where(pub_date: (Date.today - 1.month)..Date.tomorrow) }
   scope :published, -> { where.not(pub_date: nil)}
+  scope :present, -> { where("posts.pub_date <= ?", Date.today)}
 
   def has_children?
     self.children.present?
