@@ -1,12 +1,19 @@
 @import 'variables'
 .bannerContainer
   background-color: $standard-white
+  width: auto
+  padding-right: 25%
+  justify-items: center
+  align-items: center
+  display: flex
 #post .postContainer
   .bannerContainer
-    align-items: center
-    img
-      width: auto
-      max-height: 60vh
+    #image
+      width: 100%
+      position: relative
+        height: 60vh 
+      img 
+        width: 100%  
 #product
   .product-container
     display: flex
@@ -373,6 +380,13 @@
 
 
 @media (max-width: 767px) 
+  #post .postContainer 
+    .bannerContainer
+      padding: 1em 0
+      #image
+        max-width: 90%
+        img 
+          width: 100%
   #shop, #page, #post
     margin: 0 auto
   #shop .postContainer .content, #page .postContainer .content, #post .postContainer .content
@@ -398,6 +412,10 @@
     border-left: 3px double #53524E
   #post 
     .postContainer
+      .content
+        .trix-content
+          width: 90%
+          margin: 0 auto
       #postRow  
         grid-template-columns: repeat(auto-fill,100%) 
       .posts
@@ -405,6 +423,7 @@
         margin-right: 0
         .post
           flex-direction: column  
+
   #shop
     .product-collection
       min-height: 330px 
