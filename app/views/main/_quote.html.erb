@@ -15,7 +15,7 @@
         </div>
       </a>
   <% else %>
-    <div class="post mb-4  mt-4 flex">
+    <div class="post mb-4  mt-4 w-6 flex">
       <% unless !artifact.image.present? %>
         <div class="flex-third m-2"> 
           <%= cl_image_tag(artifact.image.key, width: 450, transformation: { dpr: "auto", responsive: true, width: "auto", crop: "scale"}, alt: artifact.name, class: "border-l-thick border-green-brand border-solid mr-4") %>
