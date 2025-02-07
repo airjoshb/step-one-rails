@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_23_215316) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_04_002505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_215316) do
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "interval_type", ["day", "week", "month", "year"]
   create_enum "inventory", ["trackable", "infinite"]
+  create_enum "question_type", ["open_question", "choose_one", "multiple_select"]
   create_enum "status", ["pending", "processed", "failed", "fulfilled", "refunded"]
 
   create_table "action_text_rich_texts", force: :cascade do |t|
@@ -72,6 +73,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_215316) do
     t.index ["customer_order_id"], name: "index_addresses_on_customer_order_id"
   end
 
+  create_table "answer_options", force: :cascade do |t|
+    t.text "answer_text"
+    t.integer "value"
+    t.bigint "question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answer_options_on_question_id"
+  end
+
   create_table "artifacts", force: :cascade do |t|
     t.string "name"
     t.string "url"
@@ -82,7 +92,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_215316) do
     t.datetime "updated_at", null: false
     t.string "embed"
     t.datetime "artifact_date"
+    t.bigint "survey_id"
     t.index ["category_id"], name: "index_artifacts_on_category_id"
+    t.index ["survey_id"], name: "index_artifacts_on_survey_id"
   end
 
   create_table "artifacts_posts", id: false, force: :cascade do |t|
@@ -271,6 +283,29 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_215316) do
     t.index ["slug"], name: "index_products_on_slug", unique: true
   end
 
+  create_table "question_answers", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.text "answer_option_ids"
+    t.text "answer_response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "survey_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "survey_response_id", null: false
+    t.index ["question_id"], name: "index_question_answers_on_question_id"
+    t.index ["survey_id"], name: "index_question_answers_on_survey_id"
+    t.index ["survey_response_id"], name: "index_question_answers_on_survey_response_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.enum "question_type", default: "choose_one", enum_type: "question_type"
+    t.text "question_text"
+    t.bigint "survey_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_questions_on_survey_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "user_agent"
@@ -278,6 +313,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_215316) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "survey_responses", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_survey_responses_on_customer_id"
+    t.index ["survey_id"], name: "index_survey_responses_on_survey_id"
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.text "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -313,7 +363,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_215316) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "customer_orders"
+  add_foreign_key "answer_options", "questions"
   add_foreign_key "artifacts", "categories"
+  add_foreign_key "artifacts", "surveys"
   add_foreign_key "customer_emails", "customers"
   add_foreign_key "customer_emails", "emails"
   add_foreign_key "customer_orders", "customers"
@@ -325,6 +377,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_215316) do
   add_foreign_key "payment_methods", "customer_orders"
   add_foreign_key "posts", "categories"
   add_foreign_key "products", "categories"
+  add_foreign_key "question_answers", "questions"
+  add_foreign_key "question_answers", "survey_responses"
+  add_foreign_key "question_answers", "surveys", name: "question_answers_survey_id_fkey"
+  add_foreign_key "question_answers", "users", name: "question_answers_user_id_fkey"
+  add_foreign_key "questions", "surveys"
   add_foreign_key "sessions", "users"
+  add_foreign_key "survey_responses", "customers"
+  add_foreign_key "survey_responses", "surveys"
   add_foreign_key "variations", "products"
 end

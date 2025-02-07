@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   resources :charges, only: [:new]
   post 'charge', to: 'charges#charge'
   resources :customers
+  resources :surveys do
+    resources :survey_responses do
+      resources :question_answers
+    end
+  end
   resources :sessions, only: [:index, :show, :destroy]
   resource  :password, only: [:edit, :update]
   namespace :identity do

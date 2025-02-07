@@ -1,0 +1,15 @@
+<h1><%= @.title %></h1>
+
+<% @survey.questions.each do |question| %>
+  <h2><%= question.title %></h2>
+  <% case question.question_type %>
+  <% when 'single_choice' %>
+    <p><%= question.question_answers.find { |a| a.id.to_s == @response.question_answers[question.id.to_s] }.answer_text %></p>
+  <% when 'multiple_choice' %>
+    <% question.question_answers.select { |a| @response.multiple_choice_answers(question.id).include?(a.id) }.each do |answer| %>
+      <p><%= answer.answer_text %></p>
+    <% end %>
+  <% when 'long_answer' %>
+    <p><%= @response.question_answers[question.id.to_s] %></p>
+  <% end %>
+<% end %>

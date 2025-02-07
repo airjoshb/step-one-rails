@@ -1,0 +1,43 @@
+<%= form_with model:[@survey, response] do |form| %>
+  <%= form.fields_for :survey_responses do |response| %>
+    <% @survey.questions.each do |question| %>
+      <h4>
+        <%= question.question_text %>
+      </h4>
+      <ul>
+          <% case question.question_type %>
+          <% when 'choose_one' %>
+            <% question.answer_options.each do |answer| %>
+              <li>
+                <%= response.fields_for :question_answer do |a| %>
+                  <%= a.radio_button_tag question.id, answer.id, a.id %>
+                  <%= answer.answer_text %>
+                <% end %>
+              </li>
+            <% end %>
+          <% when 'multiple_select' %>
+            <% question.answer_options.each do |answer| %>
+              <li>
+                <%= answer.fields_for :question_answers do |a| %>
+                  <%= check_box_tag question.id, a.id %>
+                  <%= a.answer_text %>
+                <% end %>
+              </li>
+            <% end %>
+          <% when 'open_question' %>
+            <li>
+              <%= answer.fields_for :question_answers do |a| %>
+                <%= text_area_tag a.answer_response %>
+                <%= a.answer_text %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
