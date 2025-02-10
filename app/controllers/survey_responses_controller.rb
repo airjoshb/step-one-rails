@@ -14,12 +14,12 @@ class SurveyResponsesController < ApplicationController
   end
 
   def create
-    customer_params = survey_response_params.delete(:customer_attributes)
+    customer_params = survey_response_params[:customer_attributes]
     customer = Customer.find_or_initialize_by(email: customer_params[:email])
     customer.assign_attributes(customer_params)
 
     if customer.save
-      @survey_response = @survey.survey_responses.new(survey_response_params)
+      @survey_response = @survey.survey_responses.new(survey_response_params.except(:customer_attributes))
       @survey_response.customer = customer
 
       if @survey_response.save
@@ -41,7 +41,6 @@ class SurveyResponsesController < ApplicationController
   def set_survey_response
     @survey_response = @survey.survey_responses.find(params[:id])
   end
-
 
   def survey_response_params
     params.require(:survey_response).permit(:survey_id, customer_attributes: [:name, :email], question_answers_attributes: [:question_id, :answer_id, :answer_response, answer_option_ids: []])
