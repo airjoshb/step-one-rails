@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_04_002505) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_10_173531) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -289,11 +289,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_04_002505) do
     t.text "answer_response"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "survey_id", null: false
-    t.bigint "user_id", null: false
     t.bigint "survey_response_id", null: false
     t.index ["question_id"], name: "index_question_answers_on_question_id"
-    t.index ["survey_id"], name: "index_question_answers_on_survey_id"
     t.index ["survey_response_id"], name: "index_question_answers_on_survey_response_id"
   end
 
@@ -379,8 +376,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_04_002505) do
   add_foreign_key "products", "categories"
   add_foreign_key "question_answers", "questions"
   add_foreign_key "question_answers", "survey_responses"
-  add_foreign_key "question_answers", "surveys", name: "question_answers_survey_id_fkey"
-  add_foreign_key "question_answers", "users", name: "question_answers_user_id_fkey"
   add_foreign_key "questions", "surveys"
   add_foreign_key "sessions", "users"
   add_foreign_key "survey_responses", "customers"

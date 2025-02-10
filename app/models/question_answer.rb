@@ -2,6 +2,7 @@ class QuestionAnswer < ApplicationRecord
   belongs_to :question
   belongs_to :survey_response
   serialize :answer_option_ids
+  has_one :survey, through: :survey_response
   validates_presence_of :question_id, :survey_id
 
   def multiple_choice_answers(id)

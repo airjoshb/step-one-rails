@@ -1,39 +1,48 @@
-<%= form_with model:[@survey, response] do |form| %>
-  <%= form.fields_for :survey_responses do |response| %>
+<%= form_with model: [@survey, response] do |form| %>
+  <%= form.fields_for :survey_responses do |response_form| %>
+    <div class="customer-fields">
+      <%= response_form.fields_for :customer do |customer_form| %>
+        <%= customer_form.label :name, "Customer Name" %>
+        <%= customer_form.text_field :name %>
+
+        <%= customer_form.label :email, "Customer Email" %>
+        <%= customer_form.email_field :email %>
+      <% end %>
+    </div>
+
     <% @survey.questions.each do |question| %>
       <h4>
         <%= question.question_text %>
       </h4>
       <ul>
-          <% case question.question_type %>
-          <% when 'choose_one' %>
-            <% question.answer_options.each do |answer| %>
-              <li>
-                <%= response.fields_for :question_answer do |a| %>
-                  <%= a.radio_button_tag question.id, answer.id, a.id %>
-                  <%= answer.answer_text %>
-                <% end %>
-              </li>
-            <% end %>
-          <% when 'multiple_select' %>
-            <% question.answer_options.each do |answer| %>
-              <li>
-                <%= answer.fields_for :question_answers do |a| %>
-                  <%= check_box_tag question.id, a.id %>
-                  <%= a.answer_text %>
-                <% end %>
-              </li>
-            <% end %>
-          <% when 'open_question' %>
+        <% case question.question_type %>
+        <% when 'choose_one' %>
+          <% question.answer_options.each do |answer| %>
             <li>
-              <%= answer.fields_for :question_answers do |a| %>
-                <%= text_area_tag a.answer_response %>
-                <%= a.answer_text %>
+              <%= response_form.fields_for :question_answers do |answer_form| %>
+                <%= answer_form.radio_button :answer_id, answer.id %>
+                <%= answer_form.label :answer_id, answer.answer_text %>
               <% end %>
             </li>
           <% end %>
-        </ul>
-
+        <% when 'multiple_select' %>
+          <% question.answer_options.each do |answer| %>
+            <li>
+              <%= response_form.fields_for :question_answers do |answer_form| %>
+                <%= answer_form.check_box :answer_option_ids, { multiple: true }, answer.id, nil %>
+                <%= answer_form.label :answer_option_ids, answer.answer_text %>
+              <% end %>
+            </li>
+          <% end %>
+        <% when 'open_question' %>
+          <li>
+            <%= response_form.fields_for :question_answers do |answer_form| %>
+              <%= answer_form.text_area :answer_response %>
+              <%= answer_form.label :answer_response, "Your response" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
     <% end %>
   <% end %>
 

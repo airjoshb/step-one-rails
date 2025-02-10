@@ -8,13 +8,25 @@ class SurveyResponsesController < ApplicationController
   end
 
   def new
-    @response = @survey.survey_responses.new; @response.question_answers.build;
+    @response = @survey.survey_responses.new
+    @response.build_customer
+    @response.question_answers.build
   end
 
   def create
-    @survey_response = @survey.survey_responses.new(survey_response_params)
-    if @survey_response.save
-      redirect_to [@survey, @survey_response], notice: "survey response was successfully created."
+    customer_params = survey_response_params.delete(:customer_attributes)
+    customer = Customer.find_or_initialize_by(email: customer_params[:email])
+    customer.assign_attributes(customer_params)
+
+    if customer.save
+      @survey_response = @survey.survey_responses.new(survey_response_params)
+      @survey_response.customer = customer
+
+      if @survey_response.save
+        redirect_to [@survey, @survey_response], notice: "Survey response was successfully created."
+      else
+        render :new, status: :unprocessable_entity
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +42,8 @@ class SurveyResponsesController < ApplicationController
     @survey_response = @survey.survey_responses.find(params[:id])
   end
 
+
   def survey_response_params
-    params.require(:survey_response).permit(:survey_id, question_answers: {})
+    params.require(:survey_response).permit(:survey_id, customer_attributes: [:name, :email], question_answers_attributes: [:question_id, :answer_id, :answer_response, answer_option_ids: []])
   end
 end
