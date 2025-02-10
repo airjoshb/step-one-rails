@@ -43,6 +43,6 @@ class SurveyResponsesController < ApplicationController
   end
 
   def survey_response_params
-    params.require(:survey_response).permit(:survey_id, customer_attributes: [:name, :email], question_answers_attributes: [:question_id, :answer_id, :answer_response, answer_option_ids: []])
+    params.require(:survey_response).permit(:survey_id, customer_attributes: [:name, :email], question_answers_attributes: [:question_id, :answer_response, answer_option_ids: []])
   end
 end
