@@ -19,6 +19,7 @@ class PostResource < Avo::BaseResource
   # Fields generated from the model
   field :title, as: :text
   field :pub_date, as: :date
+  field :pub_order, as: :number
   field :image, as: :file
   field :artifacts, as: :has_and_belongs_to_many
   field :markdown, as: :file, hide_on: [:index]

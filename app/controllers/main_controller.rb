@@ -2,7 +2,7 @@ class MainController < ApplicationController
 
   def index
     @page = Page.find_by_slug("home")
-    @posts = Post.recent
+    @posts = Post.only_parents.recent
     feature = Category.find_by_name('feature')
     @artifacts = Artifact.where(category_id: feature.id)
     events = Category.find_by_name('event')
