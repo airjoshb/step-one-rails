@@ -35,7 +35,7 @@
           <% if @post.has_children? %>
             <ol type="i" class="flex-center column mb-2" id="<%= @post.title.split.join("_") %>" >
               <li><%= link_to @post.title, "#" %></li>
-            <% for child in @post.children.order(:created_at) %>
+            <% for child in @post.children.order(:pub_order) %>
               <li><%= link_to child.title, "##{child.title.split.join("_")}", class: "border-r-2 solid border-green" %></li>
             <% end %>
             </ol>

@@ -4,9 +4,8 @@ class PostsController < ApplicationController
   def index
     if params[:category]
       @category = Category.find_by_slug(params[:category])
-      children = Post.where(category_id: @category.children.pluck(:id)).present
-      parent = @category.posts.published
-      @all_posts = children + parent
+      posts = @category.posts.published.present
+      @all_posts = posts.only_parents
       @posts = @all_posts[1..8]
       @first_post = @all_posts.first
       @more = @all_posts.flatten - @posts.flatten - [@first_post] unless @all_posts.empty?

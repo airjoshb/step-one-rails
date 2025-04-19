@@ -20,7 +20,7 @@
           <li>
             <%= form.fields_for :question_answers do |answer_form| %>
               <%= answer_form.hidden_field :question_id, value: question.id %>
-              <%= answer_form.radio_button :answer_option_ids, answer.id, name="survey_response[question_answers_attributes][answer_option_ids][answer.id]" %>
+              <%= answer_form.radio_button :answer_option_ids, answer.id %>
               <%= answer_form.label :answer_option_ids, answer.answer_text %>
             <% end %>
           </li>
