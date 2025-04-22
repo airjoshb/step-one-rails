@@ -21,6 +21,10 @@
   <%= render "quote", artifact: @artifacts unless @artifacts.nil? %>
   <section class="flex row wrap around p-4" id="posts">
     <div class="flex-half"> 
+        <strong class="">Get an email about what's top of mind each week.</strong>
+        <%= turbo_frame_tag Customer.new do %>
+          <%= link_to '+ Add Me', new_customer_path, class: "button secondary" %>
+        <% end %>
         <% if @posts %><%= render "posts" %><% end %> 
     </div>
     <div class="flex-third"> 

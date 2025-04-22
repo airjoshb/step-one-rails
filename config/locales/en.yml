@@ -30,4 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      customer:
+        email: "This email"
+    errors:
+      models:
+        customer:
+          attributes:
+            email:
+              blank: "is required"

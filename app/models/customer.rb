@@ -10,9 +10,6 @@ class Customer < ApplicationRecord
   has_many :question_answers, through: :survey_responses
   has_many :questions, through: :question_answers
   validates :email, presence: true
-  validates_uniqueness_of :email
-  
-  has_subscriptions
-
+  validates_uniqueness_of :email, message: 'is already on the list!'
 
 end

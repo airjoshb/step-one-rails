@@ -23,6 +23,7 @@
   <div class="container">
     <div class="postContainer">
       <div class="posts">
+        <%= turbo_frame_tag Customer.new, src: new_customer_path %>
         <% if @category.present? %>
           <h1 class="mt-4 border-b-8 border-green-brand border-solid"><%= @category.name %></h1>
           <svg class="inline h-4 mr-1 align-middle right green-brand" height="15" width="15"><circle cx="7.5" cy="7.5" r="6.5" stroke="transparent" fill="brand"></circle></svg>

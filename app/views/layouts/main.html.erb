@@ -7,8 +7,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application" %>
     <%= javascript_importmap_tags %>
+    <%= turbo_include_tags %>
     <%= auto_discovery_link_tag :rss, feed_url(:format => :rss) %>
     <%= yield(:head) %>
   </head>

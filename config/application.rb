@@ -18,7 +18,7 @@ module StepOneRails
     #
     config.time_zone = "Pacific Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
+    config.active_model.i18n_customize_full_message = true
     config.active_storage.service = :cloudinary
     # config.active_storage.variant_processor = :mini_magick
     config.active_storage.track_variants = true

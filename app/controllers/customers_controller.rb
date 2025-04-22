@@ -5,13 +5,15 @@ class CustomersController < ApplicationController
 
   def create
     @customer = Customer.new(customer_params)
-    unless @customer.save
+    if !@customer.save
       render :new
+    else 
+      render :create
     end
   end
 
   private
     def customer_params
-      params.require(:customer).permit(:email, :name)
+      params.require(:customer).permit(:email, :name, :promotion_consent)
     end
 end

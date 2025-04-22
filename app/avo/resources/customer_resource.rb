@@ -11,6 +11,7 @@ class CustomerResource < Avo::BaseResource
   field :email, as: :text
   field :phone, as: :text
   field :stripe_id, as: :text
+  field :promotion_consent, as: :boolean
   field :customer_orders, as: :has_many
   field :survey_responses, as: :has_many
   field :emails, as: :has_many, through: :customer_emails
