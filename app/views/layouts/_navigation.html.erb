@@ -32,6 +32,13 @@
             <%= active_link_to "About Joshua", about_path %>
         </div>
         <div class="border-t-4 border-solid border-brand pt-2 pb-3" >
+            <button class="iconButton iconContainer bagIconContainer pt-2">
+            <%= turbo_frame_tag Customer.new do %>
+                <%= link_to new_customer_path do %>
+                    <%= render "layouts/newsletter" %>
+                <% end %>
+            <% end %>
+            </button>
             <button class="iconButton iconContainer bagIconContainer">
             <%= link_to cart_path, rel: 'nofollow' do %>
                 <%= render "layouts/basket_icon" %>

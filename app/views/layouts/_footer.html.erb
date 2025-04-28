@@ -13,7 +13,10 @@
         </a>
       </li>
     </ul>
-    <p>Sign up for the newsletter</p> <%= turbo_frame_tag "newsletter", src: new_customer_path %>
+    <p>Sign up for the newsletter</p> 
+    <%= turbo_frame_tag Customer.new do %>
+      <%= link_to '+ Add Me', new_customer_path, class: "button secondary" %>
+    <% end %>
     <p class="py-4">Please reach out by email, josh at gotostepone dot com</p>		
     <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>	
   </div>	

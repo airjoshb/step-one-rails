@@ -13,4 +13,5 @@
         <%= form.hidden_field :promotion_consent, value: true %>
         <%= form.submit "sign me up", class: "button primary button-text" %>
     <% end %>
+    <%= invisible_captcha :subtitle %>
 <% end %>

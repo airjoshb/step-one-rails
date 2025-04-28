@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+  invisible_captcha only: [:create], honeypot: :subtitle
   def new
     @customer = Customer.new
   end

@@ -152,6 +152,8 @@ GEM
     inline_svg (1.9.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
+    invisible_captcha (2.3.0)
+      rails (>= 5.2)
     io-console (0.5.11)
     irb (1.4.2)
       reline (>= 0.3.0)
@@ -345,6 +347,7 @@ DEPENDENCIES
   friendly_id (~> 5.4.0)
   image_processing (~> 1.2)
   importmap-rails
+  invisible_captcha
   jbuilder
   pg (~> 1.1)
   pry-rails
