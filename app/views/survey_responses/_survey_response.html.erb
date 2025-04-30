@@ -1,0 +1,14 @@
+<div id="survey_response_<%= survey_response.id %>" class="survey-response">
+  <h3>Survey Response by <%= survey_response.customer.name %></h3>
+  <p>Email: <%= survey_response.customer.email %></p>
+
+  <h4>Answers:</h4>
+  <ul>
+    <% survey_response.question_answers.each do |answer| %>
+      <li>
+        Question: <%= answer.question.question_text %><br>
+        Response: <%= answer.answer_response.presence || "No response" %>
+      </li>
+    <% end %>
+  </ul>
+</div>

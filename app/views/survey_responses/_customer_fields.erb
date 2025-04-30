@@ -1,3 +1,4 @@
+<% Rails.logger.debug "Rendering _customer_fields partial with form object: #{form.object.inspect}" %>
 <%= form.fields_for :customer do |customer_form| %>
   <%= customer_form.label :name, "Name" %>
   <%= customer_form.text_field :name %>

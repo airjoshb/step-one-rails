@@ -10,6 +10,8 @@
         </svg>
       </div>
       <%= @survey.description %>
+      <% Rails.logger.debug "Rendering new template with @survey: #{@survey.inspect}" %>
+      <% Rails.logger.debug "Rendering new template with @response: #{@response.inspect}" %>
       <%= render 'form', response: @response %>
     </div>
   </div>

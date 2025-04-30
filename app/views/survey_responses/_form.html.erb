@@ -1,4 +1,5 @@
-<%= form_with model: [@survey, @response] do |form| %>
+<% Rails.logger.debug "Rendering _form partial with response: #{response.inspect}" %>
+<%= form_with model: [@survey, response] do |form| %>
   <div class="customer-fields">
     <%= render 'customer_fields', form: form %>
   </div>
