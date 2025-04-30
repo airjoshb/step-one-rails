@@ -16,25 +16,22 @@ class SurveyResponsesController < ApplicationController
   end
 
   def create
-    customer_params = survey_response_params.delete(:customer_attributes)
-    customer = Customer.find_or_initialize_by(email: customer_params[:email])
-    customer.assign_attributes(customer_params)
+    ActiveRecord::Base.transaction do
+      customer = find_or_initialize_customer
+      raise ActiveRecord::Rollback unless customer.save
 
-    if customer.save
-      survey_response = @response.create(survey_response_params)
-      survey_response.customer = customer
+      @response = @survey.survey_responses.new(survey_response_params)
+      @response.customer = customer
+      raise ActiveRecord::Rollback unless @response.save
 
-      if survey_response.save
-        redirect_to [@survey, @response], notice: "Survey response was successfully created."
-      else
-        Rails.logger.debug("Survey Response Errors: #{survey_response.errors.full_messages}")
-        render :new, status: :unprocessable_entity
-      end
-    else
-      Rails.logger.debug("Customer Errors: #{customer.errors.full_messages}")
+      redirect_to [@survey, @response], notice: "Survey response was successfully created."
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:alert] = e.message
       render :new, status: :unprocessable_entity
     end
   end
+
+
 
   private
 
@@ -44,6 +41,13 @@ class SurveyResponsesController < ApplicationController
 
   def set_survey_response
     @survey_response = @survey.survey_responses.find(params[:id])
+  end
+
+  def find_or_initialize_customer
+    customer_params = survey_response_params.delete(:customer_attributes)
+    customer = Customer.find_or_initialize_by(email: customer_params[:email])
+    customer.assign_attributes(customer_params)
+    customer
   end
 
   def survey_response_params
