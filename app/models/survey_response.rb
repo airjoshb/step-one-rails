@@ -1,11 +1,10 @@
 class SurveyResponse < ApplicationRecord
   belongs_to :survey
-  belongs_to :customer
-  has_many :question_answers, dependent: :destroy
+  belongs_to :customer, polymorphic: true
+  has_many :question_answers, inverse_of: :survey_response, autosave: true
 
   accepts_nested_attributes_for :customer
   accepts_nested_attributes_for :question_answers
-  validates_associated :question_answers
 
   def answered_questions_with_responses
     question_answers.includes(:question).map do |qa|
