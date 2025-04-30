@@ -6,4 +6,9 @@ class Survey < ApplicationRecord
   has_many :answer_options, through: :questions
   accepts_nested_attributes_for :survey_responses, allow_destroy: true
   accepts_nested_attributes_for :questions, allow_destroy: true
+
+  has_many_attached :trix_attachments
+  
+  has_rich_text :description
+  
 end

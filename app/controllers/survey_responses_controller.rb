@@ -10,7 +10,9 @@ class SurveyResponsesController < ApplicationController
   def new
     @response = @survey.survey_responses.new
     @response.build_customer
-    @response.question_answers.build
+    @survey.questions.each do |question|
+      @response.question_answers.build(question_id: question.id)
+    end
   end
 
   def create
@@ -19,15 +21,17 @@ class SurveyResponsesController < ApplicationController
     customer.assign_attributes(customer_params)
 
     if customer.save
-      @response = @survey.survey_responses.new(survey_response_params)
-      @response.customer = customer
+      survey_response = @response.create(survey_response_params)
+      survey_response.customer = customer
 
-      if @response.save
-        redirect_to [@survey, @survey_response], notice: "Survey response was successfully created."
+      if survey_response.save
+        redirect_to [@survey, @response], notice: "Survey response was successfully created."
       else
+        Rails.logger.debug("Survey Response Errors: #{survey_response.errors.full_messages}")
         render :new, status: :unprocessable_entity
       end
     else
+      Rails.logger.debug("Customer Errors: #{customer.errors.full_messages}")
       render :new, status: :unprocessable_entity
     end
   end
@@ -43,6 +47,10 @@ class SurveyResponsesController < ApplicationController
   end
 
   def survey_response_params
-    params.require(:survey_response).permit(:survey_id, customer_attributes: [:name, :email, :id], question_answers_attributes: {})
+    params.require(:survey_response).permit(
+      :survey_id, :customer_id,
+      customer_attributes: [:name, :email, :id],
+      question_answers_attributes: [:question_id, :answer_option_ids, :answer_response]
+    )
   end
 end

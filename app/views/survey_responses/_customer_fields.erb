@@ -1,0 +1,7 @@
+<%= form.fields_for :customer do |customer_form| %>
+  <%= customer_form.label :name, "Name" %>
+  <%= customer_form.text_field :name %>
+
+  <%= customer_form.label :email, "Email" %>
+  <%= customer_form.email_field :email %>
+<% end %>
