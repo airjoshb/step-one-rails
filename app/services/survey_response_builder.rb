@@ -1,8 +1,7 @@
-class SurveyResponseBuilder < BaseService
-    attr_accessor :customer, :survey, :questions, :question_answers, :params, :survey_response_id
+class SurveyResponseBuilder
+    attr_accessor :customer, :survey, :questions, :question_answers, :answer_options, :params, :survey_response_id
 
     def initialize(params = {})
-      super(params)
       build_survey_response(params[:survey_response_id])
     end
 
@@ -52,7 +51,7 @@ class SurveyResponseBuilder < BaseService
         self.survey = @survey_response.survey
         self.questions = @survey.questions
       else
-        @survey_response = SurveyResponse.new(customer: customer, survey: survey)
+        @survey_response = SurveyResponse.new(survey: survey)
         @question_answers = @survey.questions.collect do |question|
           @survey_response.question_answers.build(question_id: question.id)
         end

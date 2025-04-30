@@ -8,6 +8,7 @@ class SurveyResponsesController < ApplicationController
   end
 
   def new
+    @survey = Survey.find(params[:survey_id])
     @response = SurveyResponseBuilder.new(survey_response_params)
     @response.build_customer
   end
@@ -43,7 +44,6 @@ class SurveyResponsesController < ApplicationController
   end
 
   def survey_response_params
-    question_answer_params = { params: (params[:survey_response] || {}) }
-      question_answer_params.merge(customer: @customer, survey: @survey, survey_response_id: params[:id])
+    @survey
   end
 end

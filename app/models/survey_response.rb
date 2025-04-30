@@ -1,6 +1,6 @@
 class SurveyResponse < ApplicationRecord
   belongs_to :survey
-  belongs_to :customer, polymorphic: true
+  belongs_to :customer
   has_many :question_answers, inverse_of: :survey_response, autosave: true
 
   accepts_nested_attributes_for :customer
