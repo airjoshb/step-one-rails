@@ -12,7 +12,9 @@ class SurveyResponsesController < ApplicationController
     
     @response = @survey.survey_responses.new
     @response.build_customer
-    @response.question_answers.build
+    @survey.questions.each do |question|
+      @response.question_answers.build(question: question)
+    end
     
     Rails.logger.debug "@response initialized: #{@response.inspect}"
     Rails.logger.debug "@survey initialized: #{@survey.inspect}"
