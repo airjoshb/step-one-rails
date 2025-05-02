@@ -1,5 +1,5 @@
 class SurveyResponsesController < ApplicationController
-  before_action :set_survey!
+  before_action :set_survey, except: :show
   before_action :set_survey_response, only: %i[ edit update destroy ]
 
   def show
@@ -8,26 +8,37 @@ class SurveyResponsesController < ApplicationController
   end
 
   def new
-    @response = SurveyResponseBuilder.new(survey_response_params)
+    @response = @survey.survey_responses.new
     @response.build_customer
+    @survey.questions.each do |question|
+      @response.question_answers.build(question: question)
+    end
   end
 
   def create
-    @customer = find_or_initialize_customer
-    @survey_response_builder = SurveyResponseBuilder.new(survey_response_params)
-
-      if @survey_response_builder.save
-        return redirect_to [@survey, @response], notice: "Survey response was successfully created."
-      else
-        render :new
+    customer = find_or_initialize_customer
+    if customer.save
+      @survey_response = SurveyResponse.new(survey_response_params)
+      @question_answers = @survey.questions.collect do |question|
+        @survey_response.question_answers.build(question: question)
       end
+      @survey_response.customer = customer
+
+      if @survey_response.save
+        return redirect_to [@survey, @survey_response], notice: "Survey response was successfully created."
+      else
+        render :new, status: :unprocessable_entity
+      end
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
 
 
   private
 
-  def set_survey!
+  def set_survey
     @survey = Survey.find(params[:survey_id])
   end
 
@@ -42,8 +53,25 @@ class SurveyResponsesController < ApplicationController
     customer
   end
 
+  def process_question_answers(question_id, option_ids)
+    question = Question.find(question_id)
+    type = question.question_type
+    option_ids = question_answer.answer_option_ids
+    # in case of checkboxes, values are submitted as an array of
+    # strings. we will store answers as one big string separated
+    # by delimiter.
+    option_ids = if type == "mutiple_select"
+        option_ids.reject(&:blank?).reject { |t| t == "0" }.join(',')
+      else
+        option_ids
+      end
+  end
+
   def survey_response_params
-    question_answer_params = { params: (params[:survey_response] || {}) }
-    question_answer_params.merge(customer: @customer, survey: @survey, survey_response_id: params[:id])
+    params.require(:survey_response).permit(
+      :survey_id, :customer_id,
+      customer_attributes: [:name, :email, :id],
+      question_answers_attributes: [:question_id, :answer_option_ids, :answer_response]
+    )
   end
 end

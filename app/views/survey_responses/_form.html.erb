@@ -12,7 +12,7 @@
         <% when 'choose_one' %>
           <%= form.fields_for :question_answers do |answer_form| %>
             <%= answer_form.hidden_field :question_id, value: question.id %>
-            <%= answer_form.collection_radio_buttons :answer_option_ids, question.answer_options, :id, :answer_text do |b| %>
+            <%= answer_form.collection_radio_buttons :answer_option_ids, question.answer_options, :answer_text, :answer_text do |b| %>
               <li>
                 <%= b.radio_button %>
                 <%= b.label %>

@@ -35,7 +35,7 @@ class SurveyResponseBuilder
     rescue ActiveRecord::ActiveRecordError => e
       errors.add(:base, e.message)
       # repopulate answers here in case of failure as they are not getting updated
-      @answers = @survey.questions.collect do |question|
+      @question_answers = @survey.questions.collect do |question|
         @survey_response.question_answers.find { |a| a.question_id == question.id }
       end
       false
