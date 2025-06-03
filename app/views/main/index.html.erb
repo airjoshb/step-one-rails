@@ -44,7 +44,7 @@
           <% for embed in @embeds %>
             <div class="content p-4">
               <h3><%= embed.name %></h3>
-              <% unless !embed.description.present? %><div class="small"><%= embed.description %></div><% end %>
+              <% unless !embed.description.present? %><p class="small"><%= embed.description %></p><% end %>
               <%= embed.embed.html_safe %>
             </div>
           <% end %>
