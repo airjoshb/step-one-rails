@@ -295,7 +295,7 @@ class CreateCheckoutSessionsController < ApplicationController
 
   def cancel_subscription(subscription)
     order = CustomerOrder.find_by_subscription_id(subscription.id)
-    order.update(subscription_status: stripe_subscription.status, canceled_at: subscription.canceled_at)
+    order.update(subscription_status: :canceled, canceled_at: Time.now)
     order.orderables.last.update(current: false)
     puts "Cancel Subscription"
   end

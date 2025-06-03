@@ -8,7 +8,7 @@ class SurveyResponsesController < ApplicationController
   end
 
   def new
-    @response = @survey.survey_responses.new
+    @response = SurveyResponse.new
     @response.build_customer
     @survey.questions.each do |question|
       @response.question_answers.build(question: question)
@@ -23,9 +23,10 @@ class SurveyResponsesController < ApplicationController
         @survey_response.question_answers.build(question: question)
       end
       @survey_response.customer = customer
+      @survey_response.survey = @survey
 
       if @survey_response.save
-        return redirect_to [@survey, @survey_response], notice: "Survey response was successfully created."
+        render :new, notice: "Survey response was successfully created."
       else
         render :new, status: :unprocessable_entity
       end
