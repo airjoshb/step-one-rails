@@ -48,11 +48,11 @@
         <% if @post.artifacts.not_embeds.any? %>
           <div class="w-full"><p class="gold-text heading-font py-2">In this post<p></div>
           <div class="flex wrap border border-solid border-gold-brand mb-6 px-4">
-            <ul><% for artifact in @post.artifacts %>
+            <ul><% for artifact in @post.artifacts.not_embeds %>
                 <%= link_to artifact.url, target: "_blank", class: "artifact" do %>
                  <li><div class="flex-center py-4 artifact">
                     <%= cl_image_tag(artifact.image.key, width: 75, height: 75, crop: :fill, gravity: 'center', alt: artifact.name, class: "pr-4") if artifact.image.attached? %>
-                    <h4><%= artifact.name %></h4>
+                    <h4><%= artifact.category.name.singularize %>: <%= artifact.name %></h4>
                   </div></li>
                 <% end %>
                 <br />
