@@ -67,13 +67,12 @@ Rails.application.configure do
 
 
   config.action_mailer.smtp_settings = {
-    domain:         'gotostepone.com.com',
-    address:        'smtp.sendgrid.net',
-    port:           2525,
-    user_name:      'apikey',
-    password:       ENV.fetch('SENDGRID_API_KEY'),
-    authentication: :plain,
-    enable_starttls_auto: true
+    address: ENV["AWS_SMTP_ENDPOINT"],
+    user_name: ENV["AWS_SMTP_USERNAME"],
+    password: ENV["AWS_SMTP_PASSWORD"],
+    enable_starttls: true,
+    port: 587,
+    authentication: :login
   }
   config.action_mailer.perform_caching = false
 

@@ -38,11 +38,12 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.smtp_settings = {
-    domain:         'gotostepone.com',
-    address:        'smtp.sendgrid.net',
-    port:           587,
-    user_name:      'apikey',
-    password:       ENV.fetch('SENDGRID_API_KEY')
+    address: ENV["AWS_SMTP_ENDPOINT"],
+    user_name: ENV["AWS_SMTP_USERNAME"],
+    password: ENV["AWS_SMTP_PASSWORD"],
+    enable_starttls: true,
+    port: 587,
+    authentication: :login
   }
 
   config.action_mailer.perform_deliveries = false
