@@ -36,6 +36,7 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :cloudinary
 
+  config.action_mailer.delivery_method = :smtp
   # Don't care if the mailer can't send.
   config.action_mailer.smtp_settings = {
     address: ENV["AWS_SMTP_ENDPOINT"],
@@ -46,7 +47,7 @@ Rails.application.configure do
     authentication: :login
   }
 
-  config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
