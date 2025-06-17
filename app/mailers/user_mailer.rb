@@ -12,4 +12,8 @@ class UserMailer < ApplicationMailer
 
     mail to: @user.email, subject: "Verify your email"
   end
+
+  def test(email)
+    mail(:to => email, :subject => "Hello World!")
+  end
 end
