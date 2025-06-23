@@ -37,13 +37,12 @@ Rails.application.configure do
   config.active_storage.service = :cloudinary
 
   config.action_mailer.delivery_method = :smtp
-  # Don't care if the mailer can't send.
   config.action_mailer.smtp_settings = {
-    address: ENV["AWS_SMTP_ENDPOINT"],
-    user_name: ENV["AWS_SMTP_USERNAME"],
-    password: ENV["AWS_SMTP_PASSWORD"],
-    enable_starttls: true,
-    port: 587,
+    user_name: 'api',
+    password: ENV["MAILTRAP_API"],
+    address: 'bulk.smtp.mailtrap.io',
+    host: 'bulk.smtp.mailtrap.io',
+    port: '587',
     authentication: :login
   }
 

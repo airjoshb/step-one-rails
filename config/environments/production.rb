@@ -64,21 +64,19 @@ Rails.application.configure do
 
   # ActionMailer Config
   config.action_mailer.delivery_method = :smtp
-
-
   config.action_mailer.smtp_settings = {
-    address: ENV["AWS_SMTP_ENDPOINT"],
-    user_name: ENV["AWS_SMTP_USERNAME"],
-    password: ENV["AWS_SMTP_PASSWORD"],
-    enable_starttls: true,
-    port: 587,
+    user_name: 'api',
+    password: ENV["MAILTRAP_API"],
+    address: 'bulk.smtp.mailtrap.io',
+    host: 'bulk.smtp.mailtrap.io',
+    port: '587',
     authentication: :login
   }
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { host: 'gotostepone.com' }
 
 
