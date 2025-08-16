@@ -23,7 +23,7 @@ class Post < ApplicationRecord
   scope :updates, -> {left_joins(:category).where( category: {name: 'Updates'} )}
   scope :not_updates, -> {left_joins(:category).where.not( category: {name: 'Updates'} )}
   scope :this_month, -> { where(pub_date: Date.today.all_month) }
-  scope :recent, -> { where(pub_date: (Date.today - 1.month)..Date.tomorrow) }
+  scope :recent, -> { where(pub_date: (Date.today - 2.months)..Date.tomorrow) }
   scope :published, -> { where.not(pub_date: nil)}
   scope :present, -> { where("posts.pub_date <= ?", Date.today)}
 
