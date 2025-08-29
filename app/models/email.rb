@@ -2,7 +2,7 @@ class Email < ApplicationRecord
   has_and_belongs_to_many :campaigns
   has_many :customer_emails
   has_many :customers, through: :customer_emails
-
+  has_many_attached :trix_attachments
   has_rich_text :body
 
   def generate_customer_emails(campaign)
