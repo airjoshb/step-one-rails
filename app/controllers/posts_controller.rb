@@ -8,7 +8,7 @@ class PostsController < ApplicationController
       @all_posts = posts.only_parents
       @posts = @all_posts[1..8]
       @first_post = @all_posts.first
-      @more = @all_posts.flatten - @posts.flatten - [@first_post] unless @all_posts.empty?
+      @more = @all_posts - @posts.flatten - [@first_post] unless @all_posts.empty?
     else
       @all_posts = Post.published.present.not_updates
       @posts = @all_posts.only_parents.offset(1).limit(8)
