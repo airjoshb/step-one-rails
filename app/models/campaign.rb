@@ -4,8 +4,10 @@ class Campaign < ApplicationRecord
 
   def send_email
     self.emails.each do |email|
-      next email if self.customers.length == email.customers.length
-      email.generate_customer_emails(self)       
+      expected_ids = campaign.customers.pluck(:id)
+      sent_customer_ids = email.customer_emails.pluck(:customer_id)
+      next email if sent_customer_ids.sort == expected_ids.sort
+      email.generate_customer_emails(self)
     end
   end
 

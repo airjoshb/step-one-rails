@@ -7,6 +7,7 @@ class Email < ApplicationRecord
 
   def generate_customer_emails(campaign)
     campaign.customers.each do |customer|
+      next if !customer.emailable?
       next customer if customer.emails.where(id: self.id).present? && self.customer_emails.where(customer_id: customer.id).first.email_sent?
       CampaignCustomerMailer.customer_email(customer,self).deliver
       self.customer_emails.create(email_sent: true, sent_date: Time.zone.now, customer: customer )

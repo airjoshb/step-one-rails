@@ -12,4 +12,8 @@ class Customer < ApplicationRecord
   validates :email, presence: true
   validates_uniqueness_of :email, message: 'is already on the list!'
 
+  def emailable?
+    promotion_consent?
+  end
+
 end
