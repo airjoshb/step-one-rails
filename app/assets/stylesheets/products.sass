@@ -34,13 +34,17 @@
     .detailContent
       margin-top: 40px
     .imageContainer
-      z-index: 100
-      height: 500px
-      border: 3px double $grey-crumb
-      margin: 0 auto
-      img  
-        height: 100% 
+      width: 100%
+      flex: 1 1 auto
+      height: 0
+      min-height: 600px
+      align-content: center
+      text-align: center
+      img 
+        max-width: 100% 
         width: auto
+        height: 100%
+        max-height: 100%
     .details 
       margin-top: 20px;
       h1 
@@ -391,6 +395,12 @@
         max-width: 90%
         align-content: center
         img 
+          width: 100%
+          height: auto
+  #product 
+    .product-container
+      .imageContainer 
+        img
           width: 100%
           height: auto
   #shop, #page, #post
